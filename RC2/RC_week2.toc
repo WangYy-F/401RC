@@ -1,0 +1,10 @@
+\beamer@sectionintoc {1}{Elementary Probability}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Counting Principles}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Probability Measurements}{10}{0}{1}
+\beamer@sectionintoc {2}{Conditional Probability}{14}{0}{2}
+\beamer@subsectionintoc {2}{1}{Condition and Independence}{14}{0}{2}
+\beamer@subsectionintoc {2}{2}{Bayes's Theorem}{22}{0}{2}
+\beamer@sectionintoc {3}{Exercise and Discussion}{26}{0}{3}
+\beamer@subsectionintoc {3}{1}{Banach Matchbox problem}{26}{0}{3}
+\beamer@subsectionintoc {3}{2}{Two Children Paradox Revisit}{28}{0}{3}
+\beamer@subsectionintoc {3}{3}{Penney's Game}{30}{0}{3}

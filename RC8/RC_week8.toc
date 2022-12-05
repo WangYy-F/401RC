@@ -1,0 +1,13 @@
+\beamer@sectionintoc {1}{Single Sample Tests}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Single Sample Tests for the Mean and Variance (Done)}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Non-Parametric Single Sample Tests for Median}{10}{0}{1}
+\beamer@subsectionintoc {1}{3}{Inferences on Proportions}{15}{0}{1}
+\beamer@sectionintoc {2}{Comparison Tests}{19}{0}{2}
+\beamer@subsectionintoc {2}{1}{Proportion Comparison, Pooled Test}{19}{0}{2}
+\beamer@subsectionintoc {2}{2}{Comparison of Two Variances}{23}{0}{2}
+\beamer@subsectionintoc {2}{3}{Comparison of Two Means}{26}{0}{2}
+\beamer@subsectionintoc {2}{4}{Non-Parametric Methods}{34}{0}{2}
+\beamer@subsectionintoc {2}{5}{Paired Test, Correlation}{37}{0}{2}
+\beamer@subsectionintoc {2}{6}{Categorical Data}{45}{0}{2}
+\beamer@sectionintoc {3}{Supplementary Materials}{46}{0}{3}
+\beamer@subsectionintoc {3}{1}{Prepare MMA File}{46}{0}{3}

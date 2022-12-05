@@ -1,0 +1,595 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathabx}
+\usepackage{mathpazo}
+\usepackage{eulervm}
+\usepackage{natbib}
+\usepackage{enumerate}
+\usepackage{mathrsfs}
+
+\usetheme{Madrid}
+\usefonttheme{structurebold}
+\usecolortheme{dove}
+\title{VE401 RC Week8}
+\author{Wang Yangyang}
+\date{2022 Spring}
+\institute{UM-SJTU JI}
+\setbeamersize{text margin left = 20pt, text margin right = 20pt}
+
+\AtEndDocument{\begin{frame}{End}
+
+                  Credit to Zhanpeng Zhou (TA of SP21)
+                  
+                  Credit to Fan Zhang (TA of SU21)
+                  
+                  Credit to Liying Han (TA of SP21)
+                  
+                  Credit to Zhenghao Gu (TA of SP20)
+               \end{frame}}
+                
+\definecolor{antiquefuchsia}{rgb}{0.57, 0.36, 0.51}
+\newcommand{\bb}[1]{\textcolor{antiquefuchsia}{\textbf{\textit{#1}}}}
+
+\begin{document}
+\maketitle
+
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents
+\end{frame}
+
+%\AtBeginSection[ ]
+%{
+%\begin{frame}{Outline for \secname}
+%	\tableofcontents[currentsection, hideothersubsections, %sectionstyle=show/show]
+%\end{frame}
+%}
+
+\AtBeginSubsection[]{
+  \frame<beamer>{ 
+    \frametitle{Outline}   
+    \tableofcontents[currentsection,currentsubsection] 
+  }
+}
+
+\section{Single Sample Tests}
+\subsection{Single Sample Tests for the Mean and Variance (Done)}
+\begin{frame}{Test for Mean (Variance Known)}
+Let $X_{1}, \ldots, X_{n}$ be a random sample of size $n$ from a \bb{normal} distribution with \bb{unknown} mean $\mu$ and \bb{known} variance $\sigma^{2}$. Let $\mu_{0}$ be a null value of the mean. Then the test statistic is given by
+$$
+Z=\frac{\widebar{X}-\mu_{0}}{\sigma / \sqrt{n}}
+$$
+We reject at significance level $\alpha$
+\begin{itemize}
+\item $H_{0}: \mu=\mu_{0}$ if $|Z|>z_{\alpha / 2}$,
+\item $H_{0}: \mu \leq \mu_{0}$ if $Z>z_{\alpha}$,
+\item $H_{0}: \mu \geq \mu_{0}$ if $Z<-z_{\alpha}$.
+\end{itemize}
+\textit{OC curve}. The abscissa is defined by
+$$
+d=\frac{\left|\mu-\mu_{0}\right|}{\sigma} .
+$$
+\end{frame}
+
+
+\begin{frame}{Test for Mean (Variance Unknown)}
+Let $X_{1}, \ldots, X_{n}$ be a random sample of size $n$ from a \bb{normal} distribution with \bb{unknown} mean $\mu$ and \bb{unknown} variance $\sigma^{2}$. Let $\mu_{0}$ be a null value of the mean. Then the test statistic is given by
+$$
+T_{n-1}=\frac{\widebar{X}-\mu_{0}}{S / \sqrt{n}}
+$$
+We reject at significance level $\alpha$
+\begin{itemize}
+\item $H_{0}: \mu=\mu_{0}$ if $\left|T_{n-1}\right|>t_{\alpha / 2, n-1}$,
+\item $H_{0}: \mu \leq \mu_{0}$ if $T_{n-1}>t_{\alpha, n-1}$,
+\item $H_{0}: \mu \geq \mu_{0}$ if $T_{n-1}<-t_{\alpha, n-1}$.
+\end{itemize}
+\textit{OC curve}. The abscissa is defined by
+$$
+d=\frac{\left|\mu-\mu_{0}\right|}{\sigma}
+$$
+\end{frame}
+
+\begin{frame}{Comments on T-test}
+\begin{enumerate}
+\item The $T$-distribution may be used for $\frac{\widebar{X}-\mu_{0}}{S / \sqrt{n}}$ when a sample is obtained from a normal population.
+\item If a sample is obtained from a non-normal population, then for large to medium sample sizes ( $n \geq 25)$ it can be shown that violating the normality assumption does not significantly change $\alpha$ and $\beta$.
+\item For small sample sizes, a $T$-test cannot be used and an alternative (non-parametric) test must be employed.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Comments on Abscissa}
+Abscissa of OC Curves.
+$$
+d=\frac{\left|\mu-\mu_{0}\right|}{\sigma}
+$$
+where $\sigma$ is the unknown standard deviation of the random variable. We have three options:
+\begin{enumerate}
+\item If available, we can use prior experiments to insert a rough estimate for $\sigma$
+\item We can express the difference $\delta=\left|\mu-\mu_{0}\right|$ relative to $\sigma$, e.g., prescribing $d=\delta / \sigma<1$ for a small difference in the mean or $d=\delta / \sigma<2$ for a moderately large difference.
+\item We substitute the sample standard deviation $s$ for $\sigma$.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Test for Variance}
+Let $X_{1}, \ldots, X_{n}$ be a random sample of size $n$ from a \bb{normal} distribution with \bb{unknown} variance $\sigma^{2}$. Let $\sigma_{0}^{2}$ be a null value of the variance. Then the test statistic is given by
+$$
+\chi_{n-1}^{2}=\frac{(n-1) S^{2}}{\sigma_{0}^{2}} .
+$$
+We reject at significance level $\alpha$
+\begin{itemize}
+\item $H_{0}: \sigma=\sigma_{0}$ if $\chi_{n-1}^{2} \in\left(0, \chi_{1-\alpha / 2, n-1}^{2}\right) \cup\left(\chi_{\alpha / 2, n-1}^{2}, \infty\right)$,
+\item $H_{0}: \sigma \leq \sigma_{0}$ if $\chi_{n-1}^{2}>\chi_{\alpha, n-1}^{2}$,
+\item $H_{0}: \sigma \geq \sigma_{0}$ if $\chi_{n-1}^{2}<\chi_{1-\alpha, n-1}^{2}$.
+\end{itemize}
+\textit{OC curve}. The abscissa is defined by
+$$
+\lambda=\frac{\sigma}{\sigma_{0}}
+$$
+\end{frame}
+
+\begin{frame}{Comments on Chi-squared Test}
+\begin{itemize}
+\item If the distribution is non-normal, we cannot use Chi-squared test.
+\item ${ }^{* *}$ Normality of the data must first be tested if we do not know the distribution.
+\end{itemize}
+Abscissa of OC Curves.
+$$
+\lambda=\frac{\sigma}{\sigma_{0}}
+$$
+Note that the OC curves for the left- and right-tailed chi-squared distributions are distinct.
+\end{frame}
+
+\subsection{Non-Parametric Single Sample Tests for Median}
+\begin{frame}{Sign Test for Median}
+Let $X_{1}, \ldots, X_{n}$ be a random sample of size $n$ from an arbitrary continuous distribution and let
+$$
+Q_{+}=\#\left\{X_{k}: X_{k}-M_{0}>0\right\}, \quad Q_{-}=\#\left\{X_{k}: X_{k}-M_{0}<0\right\} .
+$$
+We reject at a significance level $\alpha$
+\begin{itemize}
+\item $H_{0}: M \leq M_{0}$ if $P\left[Y \leq q_{-} \mid M=M_{0}\right]<\alpha$,
+\item $H_{0}: M \geq M_{0}$ if $P\left[Y \leq q_{+} \mid M=M_{0}\right]<\alpha$,
+\item $H_{0}: M=M_{0}$ if $P\left[Y \leq \min \left(q_{-}, q_{+}\right) \mid M=M_{0}\right]<\alpha / 2$,
+\end{itemize}
+where $q_{-}, q_{+}$are values of $Q_{-}, Q_{+}$, and $Y$ follows a binomial distri-bution with parameters $n^{\prime}$ and $1 / 2$, i.e.,
+$$
+P\left[Y \leq k \mid M=M_{0}\right]=\sum_{y=0}^{k}\left(\begin{array}{c}
+n^{\prime} \\
+y
+\end{array}\right) \frac{1}{2^{n^{\prime}}}, \quad n^{\prime}=q_{+}+q_{-} .
+$$
+\end{frame}
+
+\begin{frame}{Wilcoxon Signed Rank Test for Median}
+Let $X_{1}, \ldots, X_{n}$ be a random sample of size $n$ from a symmetric distribution. Order the $n$ absolute differences $\left|X_{i}-M_{0}\right|$ according to the magnitude, so that $X_{R_{i}}-M_{0}$ is the $R_{i}$ th smallest difference by modulus. If ties in the rank occur, the mean of the ranks is assigned to all equal values. Let
+$$
+W_{+}=\sum_{R_{i}>0} R_{i}, \quad\left|W_{-}\right|=\sum_{R_{i}<0}\left|R_{i}\right| .
+$$
+We reject at significance level $\alpha$
+\begin{itemize}
+\item $H_{0}: M \leq M_{0}$ if $\left|W_{-}\right|$is smaller than the critical value for $\alpha$,
+\item $H_{0}: M \geq M_{0}$ if $W_{+}$is smaller than the critical value for $\alpha$,
+\item $H_{0}: M=M_{0}$ if $W=\min \left(W_{+},\left|W_{-}\right|\right)$is smaller than the critical value for $\alpha / 2$.
+\end{itemize}
+As is in the sign test, we use $n^{\prime}$ after discarding data with $X_{i}=M_{0}$.
+\end{frame}
+
+\begin{frame}{Wilcoxon Signed Rank Test for Median}
+For non-small sample sizes $(n \geq 10)$ a \bb{normal distribution} with parameters
+$$
+\mathrm{E}[W]=\frac{n(n+1)}{4}, \quad \operatorname{Var}[W]=\frac{n(n+1)(2 n+1)}{24}
+$$
+may be used as an approximation.
+
+However, the variance needs to be reduced if there are \bb{ties}: for each group of $t$ ties, the variance is reduced by $\left(t^{3}-t\right) / 48$.
+\begin{block}{Proof(Brief)}
+Let $I_{i}$ be a \bb{bernoulli} random variable with  $p=1 / 2$ and $l_{i}=1$ if $X_{i}<M_{0}$. Then $\left|W_{-}\right|=\sum_{i=1}^{n}\left|R_{i}\right| I_{i}$
+$$
+\begin{aligned}
+\mathrm{E}\left[\left|W_{-}\right|\right] &=\mathrm{E}\left[\sum_{i=1}^{n}\left|R_{i}\right| I_{i}\right] =\sum_{i=1}^{n} \frac{\left|R_{i}\right|}{2}=\frac{n(n+1)}{4}, \\
+\operatorname{Var}[\left|W_{-}\right|] &=\sum_{i=1}^{n}\left|R_{i}\right|^{2} \operatorname{Var} I_{i} =\sum_{i=1}^{n} \frac{\left|R_{i}\right|^{2}}{4}=\frac{n(n+1)(2 n+1)}{24} .
+\end{aligned}
+$$
+\end{block}
+\end{frame}
+
+\begin{frame}{Remarks}
+Sign Test
+\begin{itemize}
+\item Not very powerful, as the magnitude of $X_{i}-M_{0}$ is not needed.
+\item If $X_{i}-M_{0}=0$, then the data excluded from the analysis.
+\end{itemize}
+
+Wilcoxon Signed Rank Test
+\begin{itemize}
+\item Assumes a \bb{symmetric} distribution around the median.
+\item Fairly \bb{powerful}; may even be used as an alternative to the T-test without much loss of power for data following normal distributions or with large sample size.
+\item As in the sign test, observations where $X_{i}-M_{0}=0$ are discarded.
+\end{itemize}
+
+\end{frame}
+
+\subsection{Inferences on Proportions}
+\begin{frame}{Estimating Proportions}
+Let $X_{1}, \ldots, X_{n}$ be a random sample of $X$ with sample space $\{0,1\}$, an unbiased estimator for proportion is given by
+$$
+\widehat{p}=\frac{1}{n} \sum_{i=1}^{n} X_{i} .
+$$
+\begin{itemize}
+\item Statistic and distribution (by central limit theorem).
+$$
+Z=\frac{\widehat{p}-p}{\sqrt{p(1-p) / n}} \sim \operatorname{Normal}(0,1)
+$$
+\item $100(1-\alpha) \%$ two-sided confidence interval for $p$.
+$$
+\widehat{p} \pm z_{\alpha / 2} \sqrt{\widehat{p}(1-\widehat{p}) / n}
+$$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Estimating Proportions}
+Let $X_{1}, \ldots, X_{n}$ be a random sample of $X$ with sample space $\{0,1\}$, an unbiased estimator for proportion is given by
+$$
+\widehat{p}=\frac{1}{n} \sum_{i=1}^{n} X_{i} .
+$$
+
+Choose \bb{sample size}.
+
+ $\widehat{p}$ differs from $p$ by at most $d$ with $100(1-\alpha) \%$ confidence.
+$$
+d=z_{\alpha / 2} \sqrt{\widehat{p}(1-\widehat{p}) / n} \Rightarrow n=\frac{z_{\alpha / 2}^{2} \widehat{p}(1-\widehat{p})}{d^{2}} .
+$$
+When no estimate for $p$ is available, we use
+$$
+n=\frac{z_{\alpha / 2}^{2}}{4 d^{2}} .
+$$
+\end{frame}
+
+\begin{frame}{Hypothesis Testing on Proportion}
+Let $X_{1}, \ldots, X_{n}$ be a random sample of size $n$ from a Bernoulli distribution with parameter $p$ and let $\widehat{p}=\widebar{X}$ denote the sample mean. The test statistic is
+$$
+Z=\frac{\widehat{p}-p_{0}}{\sqrt{p_{0}\left(1-p_{0}\right) / n}} .
+$$
+We reject at significance level $\alpha$
+\begin{itemize}
+\item $H_{0}: p=p_{0}$ if $|Z|>z_{\alpha / 2}$,
+\item $H_{0}: p \leq p_{0}$ if $Z>z_{\alpha}$,
+\item $H_{0}: p \geq p_{0}$ if $Z<-z_{\alpha}$.
+\end{itemize}
+\end{frame}
+
+\section{Comparison Tests}
+\subsection{Proportion Comparison, Pooled Test}
+\begin{frame}{Comparing Two Proportions}
+Suppose we have random samples of sizes $n_{1}, n_{2}$ of $X^{(1)}$ and $X^{(2)}$, respectively.
+\begin{itemize}
+\item Statistic and distribution. For large sample sizes,
+$$
+Z=\frac{\widehat{p}_{1}-\widehat{p}_{2}-\left(p_{1}-p_{2}\right)}{\sqrt{\frac{p_{1}\left(1-p_{1}\right)}{n_{1}}+\frac{p_{2}\left(1-p_{2}\right)}{n_{2}}}} \sim \operatorname{Normal}(0,1) .
+$$
+\item $100(1-\alpha) \%$ two-sided confidence interval for $p_{1}-p_{2}$.
+$$
+\widehat{p}_{1}-\widehat{p}_{2} \pm z_{\alpha / 2} \sqrt{\frac{\widehat{p}_{1}\left(1-\widehat{p}_{2}\right)}{n_{1}}+\frac{\widehat{p}_{2}\left(1-\widehat{p}_{2}\right)}{n_{2}}}
+$$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Hypothesis Testing on Difference of Proportions}
+Let $X_{1}^{(i)}, \ldots, X_{n_{i}}^{(i)}, i=1,2$ be random samples of sizes $n_{i}$ from two Bernoulli distributions with parameters $p_{i}$ and let $\widehat{p}_{i}=\widebar{X}_{i}$ denote the corresponding sample means. The test statistic is given by
+$$
+Z=\frac{\widehat{p}_{1}-\widehat{p}_{2}-\left(p_{1}-p_{2}\right)_{0}}{\sqrt{\frac{\widehat{p}_{1}\left(1-\widehat{p}_{1}\right)}{n_{1}}+\frac{\widehat{p}_{2}\left(1-\widehat{p}_{2}\right)}{n_{2}}}}
+$$
+We reject at significance level $\alpha$
+\begin{itemize}
+\item $H_{0}: p_{1}-p_{2}=\left(p_{1}-p_{2}\right)_{0}$ if $|Z|>z_{\alpha / 2}$,
+\item $H_{0}: p_{1}-p_{2} \leq\left(p_{1}-p_{2}\right)_{0}$ if $Z>z_{\alpha}$,
+\item $H_{0}: p_{1}-p_{2} \geq\left(p_{1}-p_{2}\right)_{0}$ if $Z<-z_{\alpha}$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Pooled Test}
+Let $X_{1}^{(i)}, \ldots, X_{n_{i}}^{(i)}, i=1,2$ be random samples of sizes $n_{i}$ from two Bernoulli distributions with parameters $p_{i}$ and let $\widehat{p}_{i}=\widebar{X}_{i}$ denote the corresponding sample means. The test statistic is given by
+$$
+Z=\frac{\widehat{p}_{1}-\widehat{p}_{2}}{\sqrt{\widehat{p}(1-\widehat{p})\left(\frac{1}{n_{1}}+\frac{1}{n_{2}}\right)}}, \quad \widehat{p}=\frac{n_{1} \widehat{p}_{1}+n_{2} \widehat{p}_{2}}{n_{1}+n_{2}}
+$$
+We reject at significance level $\alpha$
+\begin{itemize}
+\item $H_{0}: p_{1}=p_{2}$ if $|Z|>z_{\alpha / 2}$
+\item $H_{0}: p_{1} \leq p_{2}$ if $Z>z_{\alpha}$
+\item $H_{0}: p_{1} \geq p_{2}$ if $Z<-z_{\alpha}$.
+\end{itemize}
+\end{frame}
+
+\subsection{Comparison of Two Variances}
+\begin{frame}{F-Distribution}
+Let $\chi_{\gamma_{1}}^{2}$ and $\chi_{\gamma_{2}}^{2}$ be independent chi-squared random variables with $\gamma_{1}$ and $\gamma_{2}$ degrees of freedom, respectively. Then the random variable
+$$
+F_{\gamma_{1}, \gamma_{2}}=\frac{\chi_{\gamma_{1}}^{2} / \gamma_{1}}{\chi_{\gamma_{2}} / \gamma_{2}}
+$$
+follows a \bb{F-distribution} with $\gamma_{1}$ and $\gamma_{2}$ degrees of freedom, with density function
+$$
+f_{\gamma_{1}, \gamma_{2}}(x)=\gamma_{1}^{\gamma_{1} / 2} \gamma_{2}^{\gamma_{2} / 2} \frac{\Gamma\left(\frac{\gamma_{1}+\gamma_{2}}{2}\right)}{\Gamma\left(\frac{\gamma_{1}}{2}\right) \Gamma\left(\frac{\gamma_{2}}{2}\right)} \frac{x^{\gamma_{1} / 2-1}}{\left(\gamma_{1} x+\gamma_{2}\right)^{\left(\gamma_{1}+\gamma_{2}\right) / 2}}
+$$
+for $x \geq 0$ and $f_{\gamma_{1}, \gamma_{2}}(x)=0$ for $x<0$. Furthermore,
+$$
+P\left[F_{\gamma_{1}, \gamma_{2}}<x\right]=P\left[\frac{1}{F_{\gamma_{1}, \gamma_{2}}}>\frac{1}{x}\right]=P\left[F_{\gamma_{2}, \gamma_{1}}>\frac{1}{x}\right]
+$$
+\end{frame}
+
+\begin{frame}{Comparing Variances}
+Let $S_{1}^{2}$ and $S_{2}^{2}$ be sample variances based on independent random samples of sizes $n_{1}$ and $n_{2}$ drawn from \bb{normal} populations with means $\mu_{1}$ and $\mu_{2}$ and variances $\sigma_{1}^{2}$ and $\sigma_{2}^{2}$, respectively. The test statistic is given by
+$$
+F_{n_{1}-1, n_{2}-1}=\frac{S_{1}^{2}}{S_{2}^{2}} .
+$$
+We reject at significance level $\alpha$
+\begin{itemize}
+\item $H_{0}: \sigma_{1} \leq \sigma_{2}$ if $S_{1}^{2} / S_{2}^{2}>f_{\alpha, n_{1}-1, n_{2}-1}$,
+\item $H_{0}: \sigma_{1} \geq \sigma_{2}$ if $S_{2}^{2} / S_{1}^{2}>f_{\alpha, n_{2}-1, n_{1}-1}$,
+\item $H_{0}: \sigma_{1}=\sigma_{2}$ if $S_{1}^{2} / S_{2}^{2}>f_{\alpha / 2, n_{1}-1, n_{2}-1}$ or $S_{2}^{2} / S_{1}^{2}>f_{\alpha / 2, n_{2}-1, n_{1}-1}$. 
+\end{itemize}
+
+OC curve. The abscissa is defined by
+$$
+\lambda=\frac{\sigma_{1}}{\sigma_{2}} .
+$$
+\end{frame}
+
+\subsection{Comparison of Two Means}
+\begin{frame}{Basic Cases}
+For two \bb{Normally Distributed} Populations:
+\begin{itemize}
+\item $X^{(1)} \sim N\left(\mu_{1}, \sigma_{1}^{2}\right)$
+\item $X^{(2)} \sim N\left(\mu_{2}, \sigma_{2}^{2}\right)$
+\end{itemize}
+Goal: compare $\mu_{1}$ and $\mu_{2}$.
+
+Three Basic Cases:
+\begin{itemize}
+\item $\sigma_{1}^{2}$ and $\sigma_{2}^{2}$ are known
+\item $\sigma_{1}^{2}$ and $\sigma_{2}^{2}$ are unknown but $\sigma_{1}^{2}=\sigma_{2}^{2}$
+\item $\sigma_{1}^{2}$ and $\sigma_{2}^{2}$ are unknown and not necessarily equal
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Variance Known}
+Let $X_{1}^{(i)}, \ldots, X_{n_{i}}^{(i)}$ with $i=1,2$ be samples of sizes $n_{1}$ and $n_{2}$ from normal distributions with unknown means $\mu_{1}, \mu_{2}$ and \bb{known} variances $\sigma_{1}^{2}, \sigma_{2}^{2}$. Then the test statistic is given by
+$$
+Z=\frac{\widebar{X}^{(1)}-\widebar{X}^{(2)}-\left(\mu_{1}-\mu_{2}\right)_{0}}{\sqrt{\sigma_{1}^{2} / n_{1}+\sigma_{2}^{2} / n_{2}}}
+$$
+We reject at significance level $\alpha$
+\begin{itemize}
+\item $H_{0}: \mu_{1}-\mu_{2}=\left(\mu_{1}-\mu_{2}\right)_{0}$ if $|Z|>z_{\alpha / 2}$,
+\item $H_{0}: \mu_{1}-\mu_{2} \leq\left(\mu_{1}-\mu_{2}\right)_{0}$ if $Z>z_{\alpha}$,
+\item $H_{0}: \mu_{1}-\mu_{2} \geq\left(\mu_{1}-\mu_{2}\right)_{0}$ if $Z<-z_{\alpha}$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Variance Known}
+When testing equality of means $H_{0}: \mu_{1}=\mu_{2}$, we have $\left(\mu_{1}-\right.$ $\left.\mu_{2}\right)_{0}=0$. We can use the OC curves for normal distributions with
+$$
+d=\frac{\left|\mu_{1}-\mu_{2}\right|}{\sqrt{\sigma_{1}^{2}+\sigma_{2}^{2}}}
+$$
+with $n=n_{1}=n_{2}$. When $n_{1} \neq n_{2}$, we use the equivalent sample size
+$$
+n=\frac{\sigma_{1}^{2}+\sigma_{2}^{2}}{\sigma_{1}^{2} / n_{1}+\sigma_{2}^{2} / n_{2}} .
+$$
+\end{frame}
+
+\begin{frame}{Variance Equal but Unknown}
+Variances equal but unknown. Let $X_{1}^{(i)}, \ldots, X_{n_{i}}^{(i)}$ with $i=1,2$ be samples of sizes $n_{1}$ and $n_{2}$ from normal distributions with unknown means $\mu_{1}, \mu_{2}$ and \bb{equal but unknown} variances $\sigma^{2}=\sigma_{1}^{2}=\sigma_{2}^{2}$. Then the test statistic is given by
+$$
+T_{n_{1}+n_{2}-2}=\frac{\widebar{X}^{(1)}-\widebar{X}^{(2)}-\left(\mu_{1}-\mu_{2}\right)_{0}}{\sqrt{S_{p}^{2}\left(1 / n_{1}+1 / n_{2}\right)}},
+$$
+with pooled estimator for variance
+$$
+S_{p}^{2}=\frac{\left(n_{1}-1\right) S_{1}^{2}+\left(n_{2}-1\right) S_{2}^{2}}{n_{1}+n_{2}-2} .
+$$
+We reject at significance level $\alpha$
+\begin{itemize}
+\item $H_{0}: \mu_{1}-\mu_{2}=\left(\mu_{1}-\mu_{2}\right)_{0}$ if $\left|T_{n_{1}+n_{2}-2}\right|>t_{\alpha / 2, n_{1}+n_{2}-2}$,
+\item $H_{0}: \mu_{1}-\mu_{2} \leq\left(\mu_{1}-\mu_{2}\right)_{0}$ if $T_{n_{1}+n_{2}-2}>t_{\alpha, n_{1}+n_{2}-2}$,
+\item $H_{0}: \mu_{1}-\mu_{2} \geq\left(\mu_{1}-\mu_{2}\right)_{0}$ if $T_{n_{1}+n_{2}-2}<-t_{\alpha, n_{1}+n_{2}-2}$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Variance Equal but Unknown}
+OC curve. When testing equality of means $H_{0}: \mu_{1}=\mu_{2}$, we have $\left(\mu_{1}-\right.$ $\left.\mu_{2}\right)_{0}=0$. We can use the OC curves for the T-test in case of \bb{equal} sample sizes $n=n_{1}=n_{2}$
+$$
+d=\frac{\left|\mu_{1}-\mu_{2}\right|}{2 \sigma} .
+$$
+When reading the charts, we must use the \bb{modified sample size} $n^{*}=2 n-1$.
+\end{frame}
+
+\begin{frame}{Variance Not Necessarily Equal and Unknown}
+Let $X_{1}^{(i)}, \ldots, X_{n_{i}}^{(i)}$ with $i=1,2$ be samples of sizes $n_{1}$ and $n_{2}$ from normal distributions with unknown means $\mu_{1}, \mu_{2}$ and \bb{not necessarily equal and unknown} variances $\sigma_{1}^{2}, \sigma_{2}^{2}$. The test statistic is given by
+$$
+T_{\gamma}=\frac{\widebar{X}^{(1)}-\widebar{X}^{(2)}-\left(\mu_{1}-\mu_{2}\right)_{0}}{\sqrt{S_{1}^{2} / n_{1}+S_{2}^{2} / n_{2}}}, \quad \gamma=\frac{\left(S_{1}^{2} / n_{1}+S_{2}^{2} / n_{2}\right)^{2}}{\frac{\left(S_{1}^{2} / n_{1}\right)^{2}}{n_{1}-1}+\frac{\left(S_{2}^{2} / n_{2}\right)^{2}}{n_{2}-1}}
+$$
+We reject at significance level $\alpha$
+\begin{itemize}
+\item $H_{0}: \mu_{1}-\mu_{2}=\left(\mu_{1}-\mu_{2}\right)_{0}$ if $T_{\gamma}>t_{\alpha / 2, \gamma}$,
+\item $H_{0}: \mu_{1}-\mu_{2} \leq\left(\mu_{1}-\mu_{2}\right)_{0}$ if $T_{\gamma}>t_{\alpha, \gamma}$,
+\item $H_{0}: \mu_{1}-\mu_{2} \geq\left(\mu_{1}-\mu_{2}\right)_{0}$ if $T_{\gamma}<-t_{\alpha, \gamma}$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Variance Not Necessarily Equal and Unknown}
+Remarks:
+\begin{itemize}
+\item Round $\gamma$ down to the nearest integer.
+\item No simple OC curves for Welch's test.
+\item \bb{!!!} It is not a good idea to pre-test for equal variances and then make a decision whether to use Student's or Welch's test.\bb{!!!}
+
+It is fine to test for normality, equality of variances or other properties and then to gather \bb{new data} for a comparison of means test. But using the \bb{same data} creates serious problems.
+\item When variances are unknown, current recommendations are to always use Welch's test.
+\end{itemize}
+\end{frame}
+
+\subsection{Non-Parametric Methods}
+\begin{frame}{Wilcoxon Rank-Sum Test}
+Let $X$ and $Y$ be two random samples following some continuous distributions.
+Decide whether to reject the null hypothesis
+$$
+H_{0}: P[X>Y]=\frac{1}{2} \quad \text { or } \quad H_{0}: P[X>Y] \leq \frac{1}{2}
+$$
+Procedures:
+\begin{enumerate}
+\item Let $X_{1}, \ldots, X_{m}$ and $Y_{1}, \ldots, Y_{n}, m \leq n$, be random samples from $X$ and $Y$ and associate the rank $R_{i}, i=1, \ldots, m+n$, to the $R_{i}$ th smallest among the $m+n$ total observations. If ties in the rank occur, the mean of the ranks is assigned to all equal values.
+\item Sum up the ranks of smaller samples. Then the test based on the statistic
+$$
+W_{m}:=\text { sum of the ranks of } X_{1}, \ldots, X_{m}
+$$
+is called the Wilcoxon rank-sum test.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Wilcoxon Rank-Sum Test}
+We reject $H_{0}: P[X>Y]=1 / 2$ at significance level $\alpha$ if
+\begin{itemize}
+\item for small $m$ : $W_{m}$ falls into the corresponding critical region, or
+\item for large $m(m \geq 20)$ : perform a $Z$-test, since $W_{m}$ is approximately normally distributed with
+$$
+\mathrm{E}\left[W_{m}\right]=\frac{m(m+n+1)}{2}, \quad \operatorname{Var}\left[W_{m}\right]=\frac{m n(m+n+1)}{12}
+$$
+If there are many ties, the variance may be corrected by taking
+$$
+\operatorname{Var}\left[W_{m}\right]=\frac{m n(m+n+1)}{12-\sum_{\text {groups }} \frac{t^{3}+t}{12}}
+$$
+where the sum is taken over all groups of $t$ ties (not always a good way).
+\end{itemize}
+\end{frame}
+
+\subsection{Paired Test, Correlation}
+\begin{frame}{Paired Tests for Mean}
+Comparing means (or the location) of two related populations $X$ and $Y$.
+Method: Pair the samples as $D=X-Y$.
+\begin{itemize}
+\item Set the hypothesis as, i.e.,
+$$
+H_{0}: \mu_{D}=\mu_{X}-\mu_{Y}=\left(\mu_{X}-\mu_{Y}\right)_{0}=\mu_{D 0}
+$$
+\item Then use a \bb{T-test} for $D$ is called a paired $T$-test for $X$ and $Y$
+$$
+T_{n-1}=\frac{\widebar{D}-\mu_{D_{0}}}{\sqrt{S_{D}^{2} / n}}
+$$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+Suppose the two independent random variables $X$ and $Y$ do not follow a normal distribution, but the same distribution (differing in their location).
+Assumption: $D=X-Y$ is symmetric about $M_{0} \in \mathbb{R}$.
+\begin{itemize}
+\item Set the hypothesis as, i.e.,
+$$
+H_{0}: X-Y \geq M_{0}
+$$
+\item Apply the \bb{Wilcoxon signed rank test}. Rank $\left|D_{i}-M_{0}\right|$ and calculate $W_{+}$or $W_{-}$to test the hypothesis.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Paired vs. Pooled T-Tests}
+Assume that we have two populations of normally distributed random variables $X$ and $Y$ with equal variances $\sigma^{2}$. We want to test
+$$
+H_{0}: \mu_{X}-\mu_{Y}=\left(\mu_{X}-\mu_{Y}\right)_{0}
+$$
+Then we could either perform a paired test or a pooled test.
+Which is more powerful? Let us compare the test statistics:
+$$
+\begin{aligned}
+&T_{\text {pooled }}=\frac{\widebar{X}-\widebar{Y}-\left(\mu_{X}-\mu_{Y}\right)_{0}}{\sqrt{2 S_{p}^{2} / n}}, \quad \text { critical value }=t_{\alpha / 2,2 n-2} \\
+&T_{\text {paired }}=\frac{\widebar{X}-\widebar{Y}-\left(\mu_{X}-\mu_{Y}\right)_{0}}{\sqrt{S_{D}^{2} / n}}, \quad \text { critical value }=t_{\alpha / 2, n-1}
+\end{aligned}
+$$
+Compare the two denominators, which estimate
+$$
+\frac{2 \sigma^{2}}{n} \quad \text { with } \quad \frac{\sigma_{D}^{2}}{n}
+$$
+\end{frame}
+
+\begin{frame}{Paired vs. Pooled T-Tests}
+A direct calculation yields
+$$
+\begin{aligned}
+\frac{\sigma_{D}^{2}}{n} &=\frac{\operatorname{Var}[D]}{n}=\frac{\operatorname{Var}[X]}{n}+\frac{\operatorname{Var}[Y]}{n}-\frac{2}{n} \operatorname{Cov}[X, Y] \\
+&=\frac{\sigma^{2}}{n}+\frac{\sigma^{2}}{n}-\frac{2 \sigma^{2}}{n} \frac{\operatorname{Cov}[X, Y]}{\sqrt{\operatorname{Var}[X]} \sqrt{\operatorname{Var}[Y]}} =\frac{2 \sigma^{2}}{n}\left(1-\rho_{X Y}\right)
+\end{aligned}
+$$
+Conclusion: From
+$
+\frac{\sigma_{D}^{2}}{n}=\frac{2 \sigma^{2}}{n}\left(1-\rho_{X Y}\right)
+$
+we see
+\begin{itemize}
+\item If $\rho_{X Y}>0$, paired $T$-test is more powerful. The denominator of the paired statistic will be smaller than that of the pooled statistic, leading to a larger value of the statistic.
+\item If $\rho_{X Y}$ is zero (or even negative), pairing is unnecessary and pooled $T$-test is more powerful. The reason is that it is easier to reject $H_{0}$ when comparing with $t_{\alpha / 2,2 n-2}$ than with $t_{\alpha / 2, n-1}$.
+\end{itemize}
+$\Rightarrow$ \bb{Positive correlation} makes a paired $T$-test more powerful.
+\end{frame}
+
+\begin{frame}{Test for Correlation Coefficient}
+First, find the estimation of $\varrho$. Since
+$$
+\begin{aligned}
+\widehat{\operatorname{Var}[X]}] &=\frac{1}{n-1} \sum_{i=1}^{n}\left(X_{i}-\widebar{X}\right)^{2} \\
+\widehat{\operatorname{Cov}[X, Y]} &=\frac{1}{n-1} \sum_{i=1}^{n}\left(X_{i}-\widebar{X}\right)\left(Y_{i}-\widebar{Y}\right)
+\end{aligned}
+$$
+The natural choice for an estimator for the correlation coefficient is then
+$$
+R:=\widehat{\rho}=\frac{\sum\left(X_{i}-\widebar{X}\right)\left(Y_{i}-\widebar{Y}\right)}{\sqrt{\sum\left(X_{i}-\widebar{X}\right)^{2}} \sqrt{\sum\left(Y_{i}-\widebar{Y}\right)^{2}}}
+$$
+
+
+\end{frame}
+
+\begin{frame}{Fisher Transformation of R}
+Next, suppose that $(X, Y)$ follows a bivariate normal distribution, i.e., they have the joint density
+$$
+f_{X Y}(x, y)=\frac{1}{2 \pi \sigma_{X} \sigma_{Y} \sqrt{1-\varrho^{2}}} e^{-\frac{1}{2\left(1-\varrho^{2}\right)}\left[\left(\frac{x-\mu_{X}}{\sigma_{X}}\right)^{2}-2 \varrho\left(\frac{x-\mu_{X}}{\sigma_{X}}\right)\left(\frac{y-\mu_{Y}}{\sigma_{Y}}\right)+\left(\frac{y-\mu_{Y}}{\sigma_{Y}}\right)^{2}\right]}
+$$
+with $\mu_{X}, \mu_{Y} \in \mathbb{R}, \sigma_{X}, \sigma_{Y}>0$ and correlation coefficient $\varrho \in(-1,1)$.
+
+For large $n$ the \bb{Fisher transformation} of $R$,
+$$
+\frac{1}{2} \ln \left(\frac{1+R}{1-R}\right)=\operatorname{Artanh}(R)
+$$
+is approximately \bb{normally distributed} with
+$$
+\mu=\frac{1}{2} \ln \left(\frac{1+\varrho}{1-\varrho}\right)=\operatorname{Artanh}(\varrho), \quad \sigma^{2}=\frac{1}{n-3}
+$$
+\end{frame}
+
+\begin{frame}{Test for Correlation Coefficient}
+\begin{itemize}
+\item Hypothesis test: We can test $H_{0}: \varrho=\varrho_{0}$, by \bb{$Z$-test}, using the test statistic
+$$
+\begin{aligned}
+Z &=\frac{\sqrt{n-3}}{2}\left(\ln \left(\frac{1+R}{1-R}\right)-\ln \left(\frac{1+\varrho_{0}}{1-\varrho_{0}}\right)\right) \\
+&=\sqrt{n-3}\left(\operatorname{Artanh}(R)-\operatorname{Artanh}\left(\varrho_{0}\right)\right)
+\end{aligned}
+$$
+\item Confidence interval: A $100(1-\alpha) \%$ confidence interval for $\varrho$,
+$$
+\left[\frac{1+R-(1-R) e^{2 z_{\alpha / 2} / \sqrt{n-3}}}{1+R+(1-R) e^{2 Z_{\alpha / 2} / \sqrt{n-3}}}, \frac{1+R-(1-R) e^{-2 z_{\alpha / 2} / \sqrt{n-3}}}{1+R+(1-R) e^{-2 z_{\alpha / 2} / \sqrt{n-3}}}\right]
+$$
+or
+$$
+\tanh \left(\operatorname{Artanh}(R) \pm \frac{z_{\alpha / 2}}{\sqrt{n-3}}\right)
+$$
+\end{itemize}
+
+\end{frame}
+
+\subsection{Categorical Data}
+
+\section{Supplementary Materials}
+\subsection{Prepare MMA File}
+\begin{frame}
+It is suggested that you solve problems in assignments using Mathematica. It's the best way to prepare for Final Exam.
+
+This notebook file, for your reference, is credited to previous TA Zhang Xingjian and Joy Dong. 
+
+It would be better to write your own notebook file.
+\end{frame}
+\end{document}

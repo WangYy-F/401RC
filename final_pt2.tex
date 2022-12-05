@@ -1,0 +1,567 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathabx}
+\usepackage{mathpazo}
+\usepackage{eulervm}
+\usepackage{natbib}
+\usepackage{enumerate}
+\usepackage{mathrsfs}
+
+\usetheme{Madrid}
+\usefonttheme{structurebold}
+\usecolortheme{dove}
+\title{VE401 Final Part2}
+\author{Wang Yangyang}
+\date{2022 Spring}
+\institute{UM-SJTU JI}
+\setbeamersize{text margin left = 20pt, text margin right = 20pt}
+
+\definecolor{antiquefuchsia}{rgb}{0.57, 0.36, 0.51}
+\newcommand{\bb}[1]{\textcolor{antiquefuchsia}{\textbf{\textit{#1}}}}
+
+\begin{document}
+\maketitle
+
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents
+\end{frame}
+
+%\AtBeginSection[ ]
+%{
+%\begin{frame}{Outline for \secname}
+%	\tableofcontents[currentsection, hideothersubsections, %sectionstyle=show/show]
+%\end{frame}
+%}
+
+\AtBeginSubsection[]{
+  \frame<beamer>{ 
+    \frametitle{Outline}   
+    \tableofcontents[currentsection,currentsubsection] 
+  }
+}
+
+
+\section{Comparison Tests}
+
+\subsection{Comparison of Two Variances}
+\begin{frame}{F-Distribution}
+Let $\chi_{\gamma_{1}}^{2}$ and $\chi_{\gamma_{2}}^{2}$ be independent chi-squared random variables with $\gamma_{1}$ and $\gamma_{2}$ degrees of freedom, respectively. Then the random variable
+$$
+F_{\gamma_{1}, \gamma_{2}}=\frac{\chi_{\gamma_{1}}^{2} / \gamma_{1}}{\chi_{\gamma_{2}} / \gamma_{2}}
+$$
+follows a \bb{F-distribution} with $\gamma_{1}$ and $\gamma_{2}$ degrees of freedom
+
+ Furthermore,
+$$
+P\left[F_{\gamma_{1}, \gamma_{2}}<x\right]=P\left[\frac{1}{F_{\gamma_{1}, \gamma_{2}}}>\frac{1}{x}\right]=P\left[F_{\gamma_{2}, \gamma_{1}}>\frac{1}{x}\right]
+$$
+\end{frame}
+
+\begin{frame}{Comparing Variances}
+Let $S_{1}^{2}$ and $S_{2}^{2}$ be sample variances based on independent random samples of sizes $n_{1}$ and $n_{2}$ drawn from \bb{normal} populations with means $\mu_{1}$ and $\mu_{2}$ and variances $\sigma_{1}^{2}$ and $\sigma_{2}^{2}$, respectively. The test statistic is given by
+$$
+F_{n_{1}-1, n_{2}-1}=\frac{S_{1}^{2}}{S_{2}^{2}} .
+$$
+We reject at significance level $\alpha$
+\begin{itemize}
+\item $H_{0}: \sigma_{1} \leq \sigma_{2}$ if $S_{1}^{2} / S_{2}^{2}>f_{\alpha, n_{1}-1, n_{2}-1}$,
+\item $H_{0}: \sigma_{1} \geq \sigma_{2}$ if $S_{2}^{2} / S_{1}^{2}>f_{\alpha, n_{2}-1, n_{1}-1}$,
+\item $H_{0}: \sigma_{1}=\sigma_{2}$ if $S_{1}^{2} / S_{2}^{2}>f_{\alpha / 2, n_{1}-1, n_{2}-1}$ or $S_{2}^{2} / S_{1}^{2}>f_{\alpha / 2, n_{2}-1, n_{1}-1}$. 
+\end{itemize}
+
+OC curve. The abscissa is defined by
+$$
+\lambda=\frac{\sigma_{1}}{\sigma_{2}} .
+$$
+\end{frame}
+
+\subsection{Comparison of Two Means}
+\begin{frame}{Basic Cases}
+For two \bb{Normally Distributed} Populations:
+\begin{itemize}
+\item $X^{(1)} \sim N\left(\mu_{1}, \sigma_{1}^{2}\right)$
+\item $X^{(2)} \sim N\left(\mu_{2}, \sigma_{2}^{2}\right)$
+\end{itemize}
+Goal: compare $\mu_{1}$ and $\mu_{2}$.
+
+Three Basic Cases:
+\begin{itemize}
+\item $\sigma_{1}^{2}$ and $\sigma_{2}^{2}$ are known
+\item $\sigma_{1}^{2}$ and $\sigma_{2}^{2}$ are unknown but $\sigma_{1}^{2}=\sigma_{2}^{2}$
+\item $\sigma_{1}^{2}$ and $\sigma_{2}^{2}$ are unknown and not necessarily equal
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Variance Known}
+Let $X_{1}^{(i)}, \ldots, X_{n_{i}}^{(i)}$ with $i=1,2$ be samples of sizes $n_{1}$ and $n_{2}$ from normal distributions with unknown means $\mu_{1}, \mu_{2}$ and \bb{known} variances $\sigma_{1}^{2}, \sigma_{2}^{2}$. Then the test statistic is given by
+$$
+Z=\frac{\widebar{X}^{(1)}-\widebar{X}^{(2)}-\left(\mu_{1}-\mu_{2}\right)_{0}}{\sqrt{\sigma_{1}^{2} / n_{1}+\sigma_{2}^{2} / n_{2}}}
+$$
+We reject at significance level $\alpha$
+\begin{itemize}
+\item $H_{0}: \mu_{1}-\mu_{2}=\left(\mu_{1}-\mu_{2}\right)_{0}$ if $|Z|>z_{\alpha / 2}$,
+\item $H_{0}: \mu_{1}-\mu_{2} \leq\left(\mu_{1}-\mu_{2}\right)_{0}$ if $Z>z_{\alpha}$,
+\item $H_{0}: \mu_{1}-\mu_{2} \geq\left(\mu_{1}-\mu_{2}\right)_{0}$ if $Z<-z_{\alpha}$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Variance Known}
+When testing equality of means $H_{0}: \mu_{1}=\mu_{2}$, we have $\left(\mu_{1}-\right.$ $\left.\mu_{2}\right)_{0}=0$. We can use the OC curves for normal distributions with
+$$
+d=\frac{\left|\mu_{1}-\mu_{2}\right|}{\sqrt{\sigma_{1}^{2}+\sigma_{2}^{2}}}
+$$
+with $n=n_{1}=n_{2}$. When $n_{1} \neq n_{2}$, we use the equivalent sample size
+$$
+n=\frac{\sigma_{1}^{2}+\sigma_{2}^{2}}{\sigma_{1}^{2} / n_{1}+\sigma_{2}^{2} / n_{2}} .
+$$
+\end{frame}
+
+\begin{frame}{Variance Equal but Unknown}
+Variances equal but unknown. Let $X_{1}^{(i)}, \ldots, X_{n_{i}}^{(i)}$ with $i=1,2$ be samples of sizes $n_{1}$ and $n_{2}$ from normal distributions with unknown means $\mu_{1}, \mu_{2}$ and \bb{equal but unknown} variances $\sigma^{2}=\sigma_{1}^{2}=\sigma_{2}^{2}$. Then the test statistic is given by
+$$
+T_{n_{1}+n_{2}-2}=\frac{\widebar{X}^{(1)}-\widebar{X}^{(2)}-\left(\mu_{1}-\mu_{2}\right)_{0}}{\sqrt{S_{p}^{2}\left(1 / n_{1}+1 / n_{2}\right)}},
+$$
+with pooled estimator for variance
+$$
+S_{p}^{2}=\frac{\left(n_{1}-1\right) S_{1}^{2}+\left(n_{2}-1\right) S_{2}^{2}}{n_{1}+n_{2}-2} .
+$$
+We reject at significance level $\alpha$
+\begin{itemize}
+\item $H_{0}: \mu_{1}-\mu_{2}=\left(\mu_{1}-\mu_{2}\right)_{0}$ if $\left|T_{n_{1}+n_{2}-2}\right|>t_{\alpha / 2, n_{1}+n_{2}-2}$,
+\item $H_{0}: \mu_{1}-\mu_{2} \leq\left(\mu_{1}-\mu_{2}\right)_{0}$ if $T_{n_{1}+n_{2}-2}>t_{\alpha, n_{1}+n_{2}-2}$,
+\item $H_{0}: \mu_{1}-\mu_{2} \geq\left(\mu_{1}-\mu_{2}\right)_{0}$ if $T_{n_{1}+n_{2}-2}<-t_{\alpha, n_{1}+n_{2}-2}$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Variance Equal but Unknown}
+OC curve. When testing equality of means $H_{0}: \mu_{1}=\mu_{2}$, we have $\left(\mu_{1}-\right.$ $\left.\mu_{2}\right)_{0}=0$. We can use the OC curves for the T-test in case of \bb{equal} sample sizes $n=n_{1}=n_{2}$
+$$
+d=\frac{\left|\mu_{1}-\mu_{2}\right|}{2 \sigma} .
+$$
+When reading the charts, we must use the \bb{modified sample size} $n^{*}=2 n-1$.
+\end{frame}
+
+\begin{frame}{Variance Not Necessarily Equal and Unknown}
+Let $X_{1}^{(i)}, \ldots, X_{n_{i}}^{(i)}$ with $i=1,2$ be samples of sizes $n_{1}$ and $n_{2}$ from normal distributions with unknown means $\mu_{1}, \mu_{2}$ and \bb{not necessarily equal and unknown} variances $\sigma_{1}^{2}, \sigma_{2}^{2}$. The test statistic is given by
+$$
+T_{\gamma}=\frac{\widebar{X}^{(1)}-\widebar{X}^{(2)}-\left(\mu_{1}-\mu_{2}\right)_{0}}{\sqrt{S_{1}^{2} / n_{1}+S_{2}^{2} / n_{2}}}, \quad \gamma=\frac{\left(S_{1}^{2} / n_{1}+S_{2}^{2} / n_{2}\right)^{2}}{\frac{\left(S_{1}^{2} / n_{1}\right)^{2}}{n_{1}-1}+\frac{\left(S_{2}^{2} / n_{2}\right)^{2}}{n_{2}-1}}
+$$
+We reject at significance level $\alpha$
+\begin{itemize}
+\item $H_{0}: \mu_{1}-\mu_{2}=\left(\mu_{1}-\mu_{2}\right)_{0}$ if $T_{\gamma}>t_{\alpha / 2, \gamma}$,
+\item $H_{0}: \mu_{1}-\mu_{2} \leq\left(\mu_{1}-\mu_{2}\right)_{0}$ if $T_{\gamma}>t_{\alpha, \gamma}$,
+\item $H_{0}: \mu_{1}-\mu_{2} \geq\left(\mu_{1}-\mu_{2}\right)_{0}$ if $T_{\gamma}<-t_{\alpha, \gamma}$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Variance Not Necessarily Equal and Unknown}
+Remarks:
+\begin{itemize}
+\item Round $\gamma$ down to the nearest integer.
+\item No simple OC curves for Welch's test.
+\item \bb{!!!} It is not a good idea to pre-test for equal variances and then make a decision whether to use Student's or Welch's test.\bb{!!!}
+
+It is fine to test for normality, equality of variances or other properties and then to gather \bb{new data} for a comparison of means test. But using the \bb{same data} creates serious problems.
+\item When variances are unknown, current recommendations are to always use Welch's test.
+\end{itemize}
+\end{frame}
+
+\subsection{Non-Parametric Methods}
+\begin{frame}{Wilcoxon Rank-Sum Test}
+Let $X$ and $Y$ be two random samples following some continuous distributions.
+Decide whether to reject the null hypothesis
+$$
+H_{0}: P[X>Y]=\frac{1}{2} \quad \text { or } \quad H_{0}: P[X>Y] \leq \frac{1}{2}
+$$
+Procedures:
+\begin{enumerate}
+\item Let $X_{1}, \ldots, X_{m}$ and $Y_{1}, \ldots, Y_{n}, m \leq n$, be random samples from $X$ and $Y$ and associate the rank $R_{i}, i=1, \ldots, m+n$, to the $R_{i}$ th smallest among the $m+n$ total observations. If ties in the rank occur, the mean of the ranks is assigned to all equal values.
+\item Sum up the ranks of smaller samples. Then the test based on the statistic
+$$
+W_{m}:=\text { sum of the ranks of } X_{1}, \ldots, X_{m}
+$$
+is called the Wilcoxon rank-sum test.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Wilcoxon Rank-Sum Test}
+We reject $H_{0}: P[X>Y]=1 / 2$ at significance level $\alpha$ if
+\begin{itemize}
+\item for small $m$ : $W_{m}$ falls into the corresponding critical region, or
+\item for large $m(m \geq 20)$ : perform a $Z$-test, since $W_{m}$ is approximately normally distributed with
+$$
+\mathrm{E}\left[W_{m}\right]=\frac{m(m+n+1)}{2}, \quad \operatorname{Var}\left[W_{m}\right]=\frac{m n(m+n+1)}{12}
+$$
+If there are many ties, the variance may be corrected by taking
+$$
+\operatorname{Var}\left[W_{m}\right]=\frac{m n(m+n+1)}{12-\sum_{\text {groups }} \frac{t^{3}+t}{12}}
+$$
+where the sum is taken over all groups of $t$ ties (not always a good way).
+\end{itemize}
+\end{frame}
+
+\subsection{Paired Test, Correlation}
+\begin{frame}{Paired Tests for Mean}
+Comparing means (or the location) of two related populations $X$ and $Y$.
+Method: Pair the samples as $D=X-Y$.
+\begin{itemize}
+\item Set the hypothesis as, i.e.,
+$$
+H_{0}: \mu_{D}=\mu_{X}-\mu_{Y}=\left(\mu_{X}-\mu_{Y}\right)_{0}=\mu_{D 0}
+$$
+\item Then use a \bb{T-test} for $D$ is called a paired $T$-test for $X$ and $Y$
+$$
+T_{n-1}=\frac{\widebar{D}-\mu_{D_{0}}}{\sqrt{S_{D}^{2} / n}}
+$$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Paired vs. Pooled T-Tests}
+Assume that we have two populations of normally distributed random variables $X$ and $Y$ with equal variances $\sigma^{2}$. We want to test
+$$
+H_{0}: \mu_{X}-\mu_{Y}=\left(\mu_{X}-\mu_{Y}\right)_{0}
+$$
+Then we could either perform a paired test or a pooled test.
+Which is more powerful? Let us compare the test statistics:
+$$
+\begin{aligned}
+&T_{\text {pooled }}=\frac{\widebar{X}-\widebar{Y}-\left(\mu_{X}-\mu_{Y}\right)_{0}}{\sqrt{2 S_{p}^{2} / n}}, \quad \text { critical value }=t_{\alpha / 2,2 n-2} \\
+&T_{\text {paired }}=\frac{\widebar{X}-\widebar{Y}-\left(\mu_{X}-\mu_{Y}\right)_{0}}{\sqrt{S_{D}^{2} / n}}, \quad \text { critical value }=t_{\alpha / 2, n-1}
+\end{aligned}
+$$
+Compare the two denominators, which estimate
+$$
+\frac{2 \sigma^{2}}{n} \quad \text { with } \quad \frac{\sigma_{D}^{2}}{n}
+$$
+
+\end{frame}
+
+\begin{frame}{Paired vs. Pooled T-Tests}
+Conclusion: From
+$
+\frac{\sigma_{D}^{2}}{n}=\frac{2 \sigma^{2}}{n}\left(1-\rho_{X Y}\right)
+$
+we see
+\begin{itemize}
+\item If $\rho_{X Y}>0$, paired $T$-test is more powerful. The denominator of the paired statistic will be smaller than that of the pooled statistic, leading to a larger value of the statistic.
+\item If $\rho_{X Y}$ is zero (or even negative), pairing is unnecessary and pooled $T$-test is more powerful. The reason is that it is easier to reject $H_{0}$ when comparing with $t_{\alpha / 2,2 n-2}$ than with $t_{\alpha / 2, n-1}$.
+\end{itemize}
+
+$\Rightarrow$ \bb{Positive correlation} makes a paired $T$-test more powerful.
+\end{frame}
+
+\begin{frame}{Test for Correlation Coefficient}
+First, find the estimation of $\varrho$. Since
+$$
+\begin{aligned}
+\widehat{\operatorname{Var}[X]}] &=\frac{1}{n-1} \sum_{i=1}^{n}\left(X_{i}-\widebar{X}\right)^{2} \\
+\widehat{\operatorname{Cov}[X, Y]} &=\frac{1}{n-1} \sum_{i=1}^{n}\left(X_{i}-\widebar{X}\right)\left(Y_{i}-\widebar{Y}\right)
+\end{aligned}
+$$
+The natural choice for an estimator for the correlation coefficient is then
+$$
+R:=\widehat{\rho}=\frac{\sum\left(X_{i}-\widebar{X}\right)\left(Y_{i}-\widebar{Y}\right)}{\sqrt{\sum\left(X_{i}-\widebar{X}\right)^{2}} \sqrt{\sum\left(Y_{i}-\widebar{Y}\right)^{2}}}
+$$
+
+
+\end{frame}
+
+
+\begin{frame}{Test for Correlation Coefficient}
+\begin{itemize}
+\item Hypothesis test: We can test $H_{0}: \varrho=\varrho_{0}$, by \bb{$Z$-test}, using the test statistic
+$$
+\begin{aligned}
+Z &=\frac{\sqrt{n-3}}{2}\left(\ln \left(\frac{1+R}{1-R}\right)-\ln \left(\frac{1+\varrho_{0}}{1-\varrho_{0}}\right)\right) \\
+&=\sqrt{n-3}\left(\operatorname{Artanh}(R)-\operatorname{Artanh}\left(\varrho_{0}\right)\right)
+\end{aligned}
+$$
+\item Confidence interval: A $100(1-\alpha) \%$ confidence interval for $\varrho$,
+$$
+\left[\frac{1+R-(1-R) e^{2 z_{\alpha / 2} / \sqrt{n-3}}}{1+R+(1-R) e^{2 Z_{\alpha / 2} / \sqrt{n-3}}}, \frac{1+R-(1-R) e^{-2 z_{\alpha / 2} / \sqrt{n-3}}}{1+R+(1-R) e^{-2 z_{\alpha / 2} / \sqrt{n-3}}}\right]
+$$
+or
+$$
+\tanh \left(\operatorname{Artanh}(R) \pm \frac{z_{\alpha / 2}}{\sqrt{n-3}}\right)
+$$
+\end{itemize}
+
+\end{frame}
+
+\section{Categorical Data}
+\subsection{Pearson Statistics and Multinomial Distribution}
+\begin{frame}{Categorical Random Variables}
+A random variable $X$ that can take on the values $1, \ldots, k$ with respective probabilities $p_{1} \ldots, p_{k}$ as above. A random sample of size $n$ from $X$ is collected and the results are expressed as a \bb{random vector}
+$$
+\left(X_{1}, X_{2}, \ldots, X_{k}\right) \quad \text { with } \quad X_{1}+X_{2}+\cdots+X_{k}=n
+$$
+
+\bb{The Multinomial Distribution:} A random vector $\left(\left(X_{1}, \ldots, X_{k}\right), f_{X_{1} X_{2} \cdots X_{k}}\right)$ where
+$$
+f_{X_{1} X_{2} \cdots X_{k}}\left(x_{1}, \ldots, x_{k}\right)=\frac{n !}{x_{1} ! \cdots x_{k} !} p_{1}^{x_{1}} \cdots p_{k}^{x_{k}}
+$$
+$p_{1}, \ldots, p_{k} \in(0,1), n \in \mathbb{N} \backslash\{0\}$ is said to have a multinomial distribution with parameters $n$ and $p_{1}, \ldots, p_{k}$
+\begin{itemize}
+\item
+$
+\mathrm{E}\left[X_{i}\right]=n p_{i}, \quad i=1, \ldots, k
+$
+\item $\operatorname{Var}\left[X_{i}\right]=n p_{i}\left(1-p_{i}\right), i=1, \ldots, k$
+\item $\operatorname{Cov}\left[X_{i}, X_{j}\right]=-n p_{i} p_{j}, 1 \leq i<j \leq k$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Pearson Statistics}
+Let $\left(\left(X_{1}, \ldots, X_{k}\right), f_{X_{1} X_{2} \cdots X_{k}}\right)$ be a multinomial random variable with parameters $n$ and $p_{1}, \ldots, p_{k}$. For large $n$ the \bb{Pearson statistic}
+$$
+\sum_{i=1}^{k} \frac{\left(O_{i}-E_{i}\right)^{2}}{E_{i}}=\sum_{i=1}^{k} \frac{\left(X_{i}-n p_{i}\right)^{2}}{n p_{i}}
+$$
+follows an approximate chi-squared distribution with $k-1$ degrees of freedom (because we have $k-1$ independent cells).
+
+\bb{Cochran's Rule:} This tell us how large $n$ needs to be for the chi-squared distribution to be a good approximation to the true distribution of the Pearson statistic when
+$$
+\begin{array}{ll}
+\mathrm{E}\left[X_{i}\right]=n p_{i} \geq 1, & \text { for all } i=1, \ldots, k \\
+\mathrm{E}\left[X_{i}\right]=n p_{i} \geq 5, & \text { for } 80 \% \text { of all } i=1, \ldots, k
+\end{array}
+$$
+\end{frame}
+
+
+
+\subsection{Goodness-of-Fit Test}
+\begin{frame}{Test for Multinomial Distribution}
+Let $\left(X_{1}, \ldots, X_{k}\right)$ be a sample of size $n$ from a categorical random variable with parameters $\left(p_{1}, \ldots, p_{k}\right)$. We perform the chi-squared goodness-of-fit test.
+
+Note: In this test, we directly make assumptions on parameters $p_{i}$ \bb{without estimation based on samples}. This may happen when we already have some prior knowledge of the distribution (e.g. PRNG).
+\begin{block}{Procedures}
+\begin{enumerate}
+\item Set
+$$
+H_{0}: p_{i}=p_{i_{0}}, \quad i=1, \ldots, k
+$$
+\item Calculate the expected values
+$$
+E_{i}=n p_{i 0}
+$$
+Then test whether the \bb{Cochran's rule} is satisfied.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{Test for Multinomial Distribution}
+\begin{block}{Procedures}
+\begin{enumerate}
+\setcounter{enumi}{2}
+\item If satisfied, calculate the Pearson statistic.
+$$
+X_{k-1}^{2}=\sum_{i=1}^{k} \frac{\left(X_{i}-n p_{i 0}\right)^{2}}{n p_{i 0}}
+$$
+which follows a chi-squared distribution with 
+\begin{center}
+\textit{\bb{degrees of freedom}: independent cells} $-m=k-1$
+
+\textit{independent cells = k - 1,  m=0}
+\end{center}
+
+\item We reject $H_{0}$ at significance level $\alpha$ if $X_{k-1}^{2}>\chi_{\alpha, k-1}^{2}$.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{Goodness-of-Fit Test for Discrete Distribution}
+Now, we calculate the \bb{estimates for parameters}, to make assumptions indirectly
+\begin{block}{Procedures}
+\begin{enumerate}
+\item Suppose we guess that data \bb{follow some distribution}, so we set the hypothesis as
+\begin{center}
+$H_{0}:$ A specific distribution with unknown parameter $p_{i}$
+
+e.g.,
+$H_{0}$ : A Poisson distribution with parameter $k .$
+\end{center}
+\item Estimate parameters $p_{i}$ from the sample based on your hypothesis.
+e.g., for \bb{Poisson distribution}, estimate $k$ by
+$
+\widehat{k}=\widebar{X}
+$.
+
+Then we can calculate $p_{i}$. Suppose we have three categories $x=0, x=1, x \geq 2$, then
+$$
+p_{0}=P[X=0]=\frac{e^{-\widehat{k}} \widehat{k}^{0}}{0 !}, \quad p_{1}=P[X=1]=\frac{e^{-\widehat{k}} \widehat{k}^{1}}{1 !},$$$$ \quad p_{2}=P[X \geq 2]=1-P[X=0]-P[X=1]
+$$
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{Goodness-of-Fit Test for Discrete Distribution}
+\begin{block}{Procedures}
+\begin{enumerate}
+\setcounter{enumi}{2}
+\item Calculate the expected values $E_{i}=n p_{i}$. Then make a table by yourself as below,
+\begin{tabular}{ccc}
+\hline Category $i$ & Exp. Frequency $E_{i}$ & Obs. Frequency $O_{i}$ \\
+\hline 0 & $n p_{0}$ & $x_{0}$ \\
+1 & $n p_{1}$ & $x_{1}$ \\
+2 & $n p_{2}$ & $x_{2}$ \\
+$\cdots$ & $\cdots$ & $\cdots$ \\
+\hline
+\end{tabular}
+\item Test whether the \bb{Cochran's Rule} is satisfied. If not satisfied, then go back to procedure (ii) and (iii) and change your number of categories.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{Goodness-of-Fit Test for Discrete Distribution}
+\begin{block}{Procedures}
+\begin{enumerate}
+\setcounter{enumi}{4}
+\item If (iv) satisfied, calculate the \bb{Pearson statistic}.
+$$
+X^{2}=\sum_{i=1}^{k} \frac{\left(O_{i}-E_{i}\right)^{2}}{E_{i}}
+$$
+now follows a chi-squared distribution with
+$$\#\text{ independent cells }-m=k-1-m$$
+degrees of freedom, where $m$ is the \bb{number of parameters that we estimate}. e.g., for the previous Poisson distribution test with 3 categories,
+$$
+k=3, m=1
+$$
+\item We reject $H_{0}$ at significance level $\alpha$ if $X^{2}$ exceeds the critical value.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\subsection{Test for Independence}
+
+\begin{frame}{Test for Independence}
+We define the marginal row and column sums
+$$
+n_{i}=\sum_{j=1}^{c} n_{i j}, \quad n_{\cdot j}=\sum_{i=1}^{r} n_{i j}
+$$
+For a contingency table as below,
+\begin{center}
+\begin{tabular}{l|ccc|c} 
+& column 1 & column 2 & column 3 & \\
+\hline row 1 & $n_{11}$ & $n_{12}$ & $n_{13}$ & $n_{1} \cdot$ \\
+row 2 & $n_{21}$ & $n_{22}$ & $n_{23}$ & $n_{2} .$ \\
+row 3 & $n_{31}$ & $n_{32}$ & $n_{33}$ & $n_{3} .$ \\
+\hline & $n_{\cdot 1}$ & $n_{\cdot 2}$ & $n_{\cdot 3}$ & $n$
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}{Test for Independence}
+\begin{block}{Procedures}
+\begin{enumerate}
+\item If the hypothesis is that row and column categorizations are independent, then it should be the case that
+$$
+H_{0}: p_{i j}=p_{i} \cdot p_{j}
+$$
+\item Estimates for the row and column probabilities are $\widehat{p_{i} .}=\frac{n_{i \cdot}}{n}, \widehat{p_{\cdot j}}=\frac{n_{\cdot j}}{n}$, so if $H_{0}$ is assumed,
+$$
+\widehat{p_{i j}}=\widehat{p_{i \cdot}} \cdot \widehat{p_{\cdot j}}=\frac{n_{i} \cdot n_{\cdot j}}{n^{2}}
+$$
+\item Calculate the expected values
+$$
+E_{i j}=n \cdot \widehat{p_{i j}}=\frac{n_{i} \cdot n \cdot j}{n}
+$$
+Then test whether the \bb{Cochran's rule} is satisfied.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+
+\begin{frame}{Test for Independence}
+\begin{block}{Procedures}
+\begin{enumerate}
+\setcounter{enumi}{3}
+\item If satisfied, calculate the Pearson statistic.
+$$
+X_{(r-1)(c-1)}^{2}=\sum_{i=1}^{r} \sum_{j=1}^{c} \frac{\left(O_{i j}-E_{i j}\right)^{2}}{E_{i j}}
+$$
+which follows a \bb{chi-squared distribution} with degrees of freedom:
+$$
+\text { \#independent cells }-m=r c-1-(r-1+c-1)=(r-1)(c-1)
+$$
+\begin{center}
+- \#independent cells $=r c-1$
+
+- $m=r-1+c-1$ 
+\end{center}
+\item We reject $H_{0}$ if the value of $X_{(r-1)(c-1)}^{2}$ exceeds the critical value.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{Test for Comparing Proportions}
+$$
+\begin{aligned}
+&\text { Now the row totals are fixed, rewrite the table in terms of proportions: }\\
+&\begin{array}{l|ccc|l} 
+& \text { column 1 } & \text { column 2 } & \text { column 3 } & \\
+\hline \text { row 1 } & p_{11} & p_{12} & p_{13} & p_{1 .}=1 \text { (fixed) } \\
+\text { row 2 } & p_{21} & p_{22} & p_{23} & p_{2 .}=1 \text { (fixed) } \\
+\text { row 3 } & p_{31} & p_{32} & p_{33} & p_{3 .}=1 \text { (fixed) } \\
+\text { row 4 } & p_{41} & p_{42} & p_{43} & p_{4}=1 \text { (fixed) }
+\end{array}
+\end{aligned}
+$$
+We want to compare proportions from each row, so
+$$
+H_{0}:\left\{\begin{array}{l}
+p_{11}=p_{21}=p_{31}=p_{41} \\
+p_{12}=p_{22}=p_{32}=p_{42} \\
+p_{13}=p_{23}=p_{33}=p_{43}
+\end{array}\right.
+$$
+\end{frame}
+
+
+
+\begin{frame}{Test for Comparing Proportions}
+\begin{block}{Procedure}
+\begin{enumerate}
+
+\item Supposing that $H_{0}$ is true,
+$$
+p_{j}:=p_{1 j}=p_{2 j}=p_{3 j}=p_{4 j}
+$$
+where $p_{j}$ is the proportion of all objects following into the $j$ th column. If $H_{0}$ is assumed, estimates for the column proportions are
+$$
+\widehat{p_{j}}=\frac{n_{\cdot j}}{n}
+$$
+\item Calculate the expected values
+$$
+E_{i j}=n_{i} \cdot \widehat{p_{i j}}=n_{i} \cdot \widehat{p_{j}}=\frac{n_{i} \cdot n_{\cdot j}}{n}
+$$
+Then test whether the \bb{Cochran's rule} is satisfied.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{Test for Comparing Proportions}
+\begin{block}{Procedure}
+\begin{enumerate}
+\item If satisfied, calculate the Pearson statistic.
+$$
+X_{(r-1)(c-1)}^{2}=\sum_{i=1}^{r} \sum_{j=1}^{c} \frac{\left(O_{i j}-E_{i j}\right)^{2}}{E_{i j}}
+$$
+which follows a \bb{chi-squared} distribution with degrees of freedom:
+$$
+\# \text { independent cells }-m=r(c-1)-(c-1)=(r-1)(c-1)
+$$
+
+\begin{center}
+- \#independent cells $=r(c-1)$ 
+
+- $m=(c-1)$ 
+\end{center}
+\item We reject $H_{0}$ if the value of $X_{(r-1)(c-1)}^{2}$ exceeds the critical value.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\end{document}

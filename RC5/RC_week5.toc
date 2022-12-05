@@ -1,0 +1,11 @@
+\beamer@sectionintoc {1}{Reliability}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Reliability and Hazard}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{System}{9}{0}{1}
+\beamer@sectionintoc {2}{Basic Statistics}{11}{0}{2}
+\beamer@subsectionintoc {2}{1}{Samples and Data}{11}{0}{2}
+\beamer@subsectionintoc {2}{2}{Data Visualization}{15}{0}{2}
+\beamer@sectionintoc {3}{Estimator}{23}{0}{3}
+\beamer@subsectionintoc {3}{1}{Parameter Estimation}{23}{0}{3}
+\beamer@subsectionintoc {3}{2}{Interval Estimation}{33}{0}{3}
+\beamer@sectionintoc {4}{Supplementary Materials}{39}{0}{4}
+\beamer@subsectionintoc {4}{1}{Exercise and Discussion}{39}{0}{4}

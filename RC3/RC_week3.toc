@@ -1,0 +1,14 @@
+\beamer@sectionintoc {1}{Discrete Random Variables}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Random Variables, PDF and CDF}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Expectation, Variance and Moments}{7}{0}{1}
+\beamer@sectionintoc {2}{Distributions of Discrete Random Variable}{20}{0}{2}
+\beamer@subsectionintoc {2}{1}{Bernoulli, Binomial Distribution}{20}{0}{2}
+\beamer@subsectionintoc {2}{2}{Geometric, Pascal, Negative Binomial Distribution}{25}{0}{2}
+\beamer@subsectionintoc {2}{3}{Poisson Distribution}{32}{0}{2}
+\beamer@subsectionintoc {2}{4}{Summary for Common Distributions}{36}{0}{2}
+\beamer@sectionintoc {3}{Continuous Random Variables}{43}{0}{3}
+\beamer@subsectionintoc {3}{1}{PDF, CDF and Location}{43}{0}{3}
+\beamer@subsectionintoc {3}{2}{Expectation, Variance and Moments}{46}{0}{3}
+\beamer@subsectionintoc {3}{3}{Exponential, Gamma, Chi-Squared Distribution}{48}{0}{3}
+\beamer@sectionintoc {4}{Supplementary Materials}{61}{0}{4}
+\beamer@subsectionintoc {4}{1}{Exercise and Discussion}{61}{0}{4}

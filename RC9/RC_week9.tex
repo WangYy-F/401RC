@@ -1,0 +1,576 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathabx}
+\usepackage{mathpazo}
+\usepackage{eulervm}
+\usepackage{natbib}
+\usepackage{enumerate}
+\usepackage{mathrsfs}
+
+\usetheme{Madrid}
+\usefonttheme{structurebold}
+\usecolortheme{dove}
+\title{VE401 RC Week9}
+\author{Wang Yangyang}
+\date{2022 Spring}
+\institute{UM-SJTU JI}
+\setbeamersize{text margin left = 20pt, text margin right = 20pt}
+
+\AtEndDocument{\begin{frame}{End}
+
+                  Credit to Zhanpeng Zhou (TA of SP21)
+                  
+                  Credit to Fan Zhang (TA of SU21)
+                  
+                  Credit to Liying Han (TA of SP21)
+                  
+                  Credit to Zhenghao Gu (TA of SP20)
+               \end{frame}}
+                
+\definecolor{antiquefuchsia}{rgb}{0.57, 0.36, 0.51}
+\newcommand{\bb}[1]{\textcolor{antiquefuchsia}{\textbf{\textit{#1}}}}
+
+\begin{document}
+\maketitle
+
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents
+\end{frame}
+
+%\AtBeginSection[ ]
+%{
+%\begin{frame}{Outline for \secname}
+%	\tableofcontents[currentsection, hideothersubsections, %sectionstyle=show/show]
+%\end{frame}
+%}
+
+\AtBeginSubsection[]{
+  \frame<beamer>{ 
+    \frametitle{Outline}   
+    \tableofcontents[currentsection,currentsubsection] 
+  }
+}
+
+\section{Categorical Data}
+\subsection{Pearson Statistics and Multinomial Distribution}
+\begin{frame}{Categorical Random Variables}
+A random variable $X$ that can take on the values $1, \ldots, k$ with respective probabilities $p_{1} \ldots, p_{k}$ as above. A random sample of size $n$ from $X$ is collected and the results are expressed as a \bb{random vector}
+$$
+\left(X_{1}, X_{2}, \ldots, X_{k}\right) \quad \text { with } \quad X_{1}+X_{2}+\cdots+X_{k}=n
+$$
+
+\bb{The Multinomial Distribution:} A random vector $\left(\left(X_{1}, \ldots, X_{k}\right), f_{X_{1} X_{2} \cdots X_{k}}\right)$ where
+$$
+f_{X_{1} X_{2} \cdots X_{k}}\left(x_{1}, \ldots, x_{k}\right)=\frac{n !}{x_{1} ! \cdots x_{k} !} p_{1}^{x_{1}} \cdots p_{k}^{x_{k}}
+$$
+$p_{1}, \ldots, p_{k} \in(0,1), n \in \mathbb{N} \backslash\{0\}$ is said to have a multinomial distribution with parameters $n$ and $p_{1}, \ldots, p_{k}$
+\begin{itemize}
+\item
+$
+\mathrm{E}\left[X_{i}\right]=n p_{i}, \quad i=1, \ldots, k
+$
+\item $\operatorname{Var}\left[X_{i}\right]=n p_{i}\left(1-p_{i}\right), i=1, \ldots, k$
+\item $\operatorname{Cov}\left[X_{i}, X_{j}\right]=-n p_{i} p_{j}, 1 \leq i<j \leq k$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Pearson Statistics}
+Let $\left(\left(X_{1}, \ldots, X_{k}\right), f_{X_{1} X_{2} \cdots X_{k}}\right)$ be a multinomial random variable with parameters $n$ and $p_{1}, \ldots, p_{k}$. For large $n$ the \bb{Pearson statistic}
+$$
+\sum_{i=1}^{k} \frac{\left(O_{i}-E_{i}\right)^{2}}{E_{i}}=\sum_{i=1}^{k} \frac{\left(X_{i}-n p_{i}\right)^{2}}{n p_{i}}
+$$
+follows an approximate chi-squared distribution with $k-1$ degrees of freedom (because we have $k-1$ independent cells).
+
+\bb{Cochran's Rule:} This tell us how large $n$ needs to be for the chi-squared distribution to be a good approximation to the true distribution of the Pearson statistic when
+$$
+\begin{array}{ll}
+\mathrm{E}\left[X_{i}\right]=n p_{i} \geq 1, & \text { for all } i=1, \ldots, k \\
+\mathrm{E}\left[X_{i}\right]=n p_{i} \geq 5, & \text { for } 80 \% \text { of all } i=1, \ldots, k
+\end{array}
+$$
+\end{frame}
+
+
+
+\subsection{Goodness-of-Fit Test}
+\begin{frame}{Test for Multinomial Distribution}
+Let $\left(X_{1}, \ldots, X_{k}\right)$ be a sample of size $n$ from a categorical random variable with parameters $\left(p_{1}, \ldots, p_{k}\right)$. We perform the chi-squared goodness-of-fit test.
+
+Note: In this test, we directly make assumptions on parameters $p_{i}$ \bb{without estimation based on samples}. This may happen when we already have some prior knowledge of the distribution (e.g. PRNG).
+\begin{block}{Procedures}
+\begin{enumerate}
+\item Set
+$$
+H_{0}: p_{i}=p_{i_{0}}, \quad i=1, \ldots, k
+$$
+\item Calculate the expected values
+$$
+E_{i}=n p_{i 0}
+$$
+Then test whether the \bb{Cochran's rule} is satisfied.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{Test for Multinomial Distribution}
+\begin{block}{Procedures}
+\begin{enumerate}
+\setcounter{enumi}{2}
+\item If satisfied, calculate the Pearson statistic.
+$$
+X_{k-1}^{2}=\sum_{i=1}^{k} \frac{\left(X_{i}-n p_{i 0}\right)^{2}}{n p_{i 0}}
+$$
+which follows a chi-squared distribution with 
+\begin{center}
+\textit{\bb{degrees of freedom}: independent cells} $-m=k-1$
+
+\textit{independent cells = k - 1,  m=0}
+\end{center}
+
+\item We reject $H_{0}$ at significance level $\alpha$ if $X_{k-1}^{2}>\chi_{\alpha, k-1}^{2}$.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{Goodness-of-Fit Test for Discrete Distribution}
+Now, we calculate the \bb{estimates for parameters}, to make assumptions indirectly
+\begin{block}{Procedures}
+\begin{enumerate}
+\item Suppose we guess that data \bb{follow some distribution}, so we set the hypothesis as
+\begin{center}
+$H_{0}:$ A specific distribution with unknown parameter $p_{i}$
+
+e.g.,
+$H_{0}$ : A Poisson distribution with parameter $k .$
+\end{center}
+\item Estimate parameters $p_{i}$ from the sample based on your hypothesis.
+e.g., for \bb{Poisson distribution}, estimate $k$ by
+$
+\widehat{k}=\widebar{X}
+$.
+
+Then we can calculate $p_{i}$. Suppose we have three categories $x=0, x=1, x \geq 2$, then
+$$
+p_{0}=P[X=0]=\frac{e^{-\widehat{k}} \widehat{k}^{0}}{0 !}, \quad p_{1}=P[X=1]=\frac{e^{-\widehat{k}} \widehat{k}^{1}}{1 !},$$$$ \quad p_{2}=P[X \geq 2]=1-P[X=0]-P[X=1]
+$$
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{Goodness-of-Fit Test for Discrete Distribution}
+\begin{block}{Procedures}
+\begin{enumerate}
+\setcounter{enumi}{2}
+\item Calculate the expected values $E_{i}=n p_{i}$. Then make a table by yourself as below,
+\begin{tabular}{ccc}
+\hline Category $i$ & Exp. Frequency $E_{i}$ & Obs. Frequency $O_{i}$ \\
+\hline 0 & $n p_{0}$ & $x_{0}$ \\
+1 & $n p_{1}$ & $x_{1}$ \\
+2 & $n p_{2}$ & $x_{2}$ \\
+$\cdots$ & $\cdots$ & $\cdots$ \\
+\hline
+\end{tabular}
+\item Test whether the \bb{Cochran's Rule} is satisfied. If not satisfied, then go back to procedure (ii) and (iii) and change your number of categories.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{Goodness-of-Fit Test for Discrete Distribution}
+\begin{block}{Procedures}
+\begin{enumerate}
+\setcounter{enumi}{4}
+\item If (iv) satisfied, calculate the \bb{Pearson statistic}.
+$$
+X^{2}=\sum_{i=1}^{k} \frac{\left(O_{i}-E_{i}\right)^{2}}{E_{i}}
+$$
+now follows a chi-squared distribution with
+$$\#\text{ independent cells }-m=k-1-m$$
+degrees of freedom, where $m$ is the \bb{number of parameters that we estimate}. e.g., for the previous Poisson distribution test with 3 categories,
+$$
+k=3, m=1
+$$
+\item We reject $H_{0}$ at significance level $\alpha$ if $X^{2}$ exceeds the critical value.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\subsection{Test for Independence}
+
+\begin{frame}{Test for Independence}
+We define the marginal row and column sums
+$$
+n_{i}=\sum_{j=1}^{c} n_{i j}, \quad n_{\cdot j}=\sum_{i=1}^{r} n_{i j}
+$$
+For a contingency table as below,
+\begin{center}
+\begin{tabular}{l|ccc|c} 
+& column 1 & column 2 & column 3 & \\
+\hline row 1 & $n_{11}$ & $n_{12}$ & $n_{13}$ & $n_{1} \cdot$ \\
+row 2 & $n_{21}$ & $n_{22}$ & $n_{23}$ & $n_{2} .$ \\
+row 3 & $n_{31}$ & $n_{32}$ & $n_{33}$ & $n_{3} .$ \\
+\hline & $n_{\cdot 1}$ & $n_{\cdot 2}$ & $n_{\cdot 3}$ & $n$
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}{Test for Independence}
+\begin{block}{Procedures}
+\begin{enumerate}
+\item If the hypothesis is that row and column categorizations are independent, then it should be the case that
+$$
+H_{0}: p_{i j}=p_{i} \cdot p_{j}
+$$
+\item Estimates for the row and column probabilities are $\widehat{p_{i} .}=\frac{n_{i \cdot}}{n}, \widehat{p_{\cdot j}}=\frac{n_{\cdot j}}{n}$, so if $H_{0}$ is assumed,
+$$
+\widehat{p_{i j}}=\widehat{p_{i \cdot}} \cdot \widehat{p_{\cdot j}}=\frac{n_{i} \cdot n_{\cdot j}}{n^{2}}
+$$
+\item Calculate the expected values
+$$
+E_{i j}=n \cdot \widehat{p_{i j}}=\frac{n_{i} \cdot n \cdot j}{n}
+$$
+Then test whether the \bb{Cochran's rule} is satisfied.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+
+\begin{frame}{Test for Independence}
+\begin{block}{Procedures}
+\begin{enumerate}
+\setcounter{enumi}{3}
+\item If satisfied, calculate the Pearson statistic.
+$$
+X_{(r-1)(c-1)}^{2}=\sum_{i=1}^{r} \sum_{j=1}^{c} \frac{\left(O_{i j}-E_{i j}\right)^{2}}{E_{i j}}
+$$
+which follows a \bb{chi-squared distribution} with degrees of freedom:
+$$
+\text { \#independent cells }-m=r c-1-(r-1+c-1)=(r-1)(c-1)
+$$
+\begin{center}
+- \#independent cells $=r c-1$ because we have $r c$ catagories.
+
+- $m=r-1+c-1$ because we estimate $p_{i}$. with $i \leq r-1$ and $p_{\cdot j}$ with $j \leq c-1$.
+\end{center}
+\item We reject $H_{0}$ if the value of $X_{(r-1)(c-1)}^{2}$ exceeds the critical value.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{Test for Comparing Proportions}
+$$
+\begin{aligned}
+&\text { Now the row totals are fixed, rewrite the table in terms of proportions: }\\
+&\begin{array}{l|ccc|l} 
+& \text { column 1 } & \text { column 2 } & \text { column 3 } & \\
+\hline \text { row 1 } & p_{11} & p_{12} & p_{13} & p_{1 .}=1 \text { (fixed) } \\
+\text { row 2 } & p_{21} & p_{22} & p_{23} & p_{2 .}=1 \text { (fixed) } \\
+\text { row 3 } & p_{31} & p_{32} & p_{33} & p_{3 .}=1 \text { (fixed) } \\
+\text { row 4 } & p_{41} & p_{42} & p_{43} & p_{4}=1 \text { (fixed) }
+\end{array}
+\end{aligned}
+$$
+We want to compare proportions from each row, so
+$$
+H_{0}:\left\{\begin{array}{l}
+p_{11}=p_{21}=p_{31}=p_{41} \\
+p_{12}=p_{22}=p_{32}=p_{42} \\
+p_{13}=p_{23}=p_{33}=p_{43}
+\end{array}\right.
+$$
+\end{frame}
+
+
+
+\begin{frame}{Test for Comparing Proportions}
+\begin{block}{Procedure}
+\begin{enumerate}
+
+\item Supposing that $H_{0}$ is true,
+$$
+p_{j}:=p_{1 j}=p_{2 j}=p_{3 j}=p_{4 j}
+$$
+where $p_{j}$ is the proportion of all objects following into the $j$ th column. If $H_{0}$ is assumed, estimates for the column proportions are
+$$
+\widehat{p_{j}}=\frac{n_{\cdot j}}{n}
+$$
+\item Calculate the expected values
+$$
+E_{i j}=n_{i} \cdot \widehat{p_{i j}}=n_{i} \cdot \widehat{p_{j}}=\frac{n_{i} \cdot n_{\cdot j}}{n}
+$$
+Then test whether the \bb{Cochran's rule} is satisfied.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{Test for Comparing Proportions}
+\begin{block}{Procedure}
+\begin{enumerate}
+\item If satisfied, calculate the Pearson statistic.
+$$
+X_{(r-1)(c-1)}^{2}=\sum_{i=1}^{r} \sum_{j=1}^{c} \frac{\left(O_{i j}-E_{i j}\right)^{2}}{E_{i j}}
+$$
+which follows a \bb{chi-squared} distribution with
+$$
+\# \text { independent cells }-m=r(c-1)-(c-1)=(r-1)(c-1)
+$$
+degrees of freedom.
+\begin{center}
+- \#independent cells $=r(c-1)$ because only the number of objects in the first $c-1$ columns can be independently chosen, so we have a total of $r \cdot(c-1)$ independent cells.
+
+- $m=(c-1)$ because we estimate $p_{j}$ for $c-1$ times.
+\end{center}
+\item We reject $H_{0}$ if the value of $X_{(r-1)(c-1)}^{2}$ exceeds the critical value.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\section{Simple Linear Regression}
+\subsection{Basic Calculation}
+\begin{frame}{Simple Linear Regression Model}
+We assume that
+$$
+Y \mid x=\beta_{0}+\beta_{1} x+E,
+$$
+where $E[E]=0$. We want to find estimators
+$$
+\begin{array}{ll}
+B_{0}:=\widehat{\beta_{0}}=\text { estimator for } \beta_{0}, & b_{0}=\text { estimate for } \beta_{0}, \\
+B_{1}:=\widehat{\beta_{1}}=\text { estimator for } \beta_{1}, & b_{1}=\text { estimate for } \beta_{1} .
+\end{array}
+$$
+\begin{block}{Assumptions}
+\begin{itemize}
+\item For each value of $x$, the random variable follows a normal distribution with variance $\sigma^{2}$ and mean $\mu_{Y \mid x}=\beta_{0}+\beta_{1} x$.
+\item The random variables $Y \mid x_{1}$ and $Y \mid x_{2}$ are independent if $x_{1} \neq x_{2}$.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Least Square Estimator}
+We have the error \bb{sum of squares}
+$$
+\mathrm{SS}_{\mathrm{E}}:=\sum_{i=1}^{n} e_{i}^{2}=\sum_{i=1}^{n}\left(y_{i}-\left(b_{0}+b_{1} x_{i}\right)\right)^{2}
+$$
+To \bb{minimize} it, we take
+$$
+\begin{aligned}
+\frac{\partial \mathrm{SS}_{\mathrm{E}}}{\partial b_{0}} &=-2 \sum_{i=1}^{n}\left(y_{i}-b_{0}-b_{1} x_{i}\right)=0 \\
+\frac{\partial \mathrm{SS}_{\mathrm{E}}}{\partial b_{1}} &=-2 \sum_{i=1}^{n}\left(y_{i}-b_{0}-b_{1} x_{i}\right) x_{i}=0
+\end{aligned}
+$$
+which gives
+$$
+b_{1}=\frac{S_{x y}}{S_{x x}}, \quad b_{0}=\widebar{y}-b_{1} \widebar{x}
+$$
+\end{frame}
+
+\begin{frame}{Properties}
+$$
+\begin{aligned}
+S_{x x} &=\sum_{i=1}^{n}\left(x_{i}-\widebar{x}\right)^{2}=\sum_{i=1}^{n}\left(x_{i}-\widebar{x}\right) x_{i}=\sum_{i=1}^{n} x_{i}^{2}-\frac{1}{n}\left(\sum_{i=1}^{n} x_{i}\right)^{2}=\sum_{i=1}^{n} x_{i}^{2}-n \widebar{x}^{2}, \\
+S_{y y} &=\sum_{i=1}^{n}\left(y_{i}-\widebar{y}\right)^{2}=\sum_{i=1}^{n}\left(y_{i}-\widebar{y}\right) y_{i}=\sum_{i=1}^{n} y_{i}^{2}-\frac{1}{n}\left(\sum_{i=1}^{n} y_{i}\right)^{2}=\sum_{i=1}^{n} y_{i}^{2}-n \widebar{y}^{2}, \\
+S_{x y} &=\sum_{i=1}^{n}\left(x_{i}-\widebar{x}\right)\left(y_{i}-\widebar{y}\right)=\sum_{i=1}^{n}\left(x_{i}-\widebar{x}\right) y_{i}=\sum_{i=1}^{n}\left(y_{i}-\widebar{y}\right) x_{i}=\\
+&\sum_{i=1}^{n} x_{i} y_{i}-n \widebar{x} \cdot \widebar{y} 
+=\sum_{i=1}^{n} x_{i} y_{i}-\frac{1}{n}\left(\sum_{i=1}^{n} x_{i}\right)\left(\sum_{i=1}^{n} y_{i}\right) . \\
+b_{1} &=\frac{S_{x y}}{S_{x x}}, \quad b_{0}=\widebar{y}-b_{1} \widebar{x}, \quad \quad \mathrm{SS}_{E}=S_{y y}-b_{1} S_{x y} .
+\end{aligned}
+$$
+\end{frame}
+
+\begin{frame}{Calculation Procedure}
+\begin{enumerate}
+\item Find $\sum x_{i}, \sum y_{i}, \sum x_{i}^{2}, \sum y_{i}^{2}, \sum x_{i} y_{i}$ and calculate
+$$
+\begin{aligned}
+&S_{x x}=\sum x_{i}^{2}-\frac{1}{n}\left(\sum x_{i}\right)^{2}, \quad S_{y y}=\sum y_{i}^{2}-\frac{1}{n}\left(\sum y_{i}\right)^{2} \\
+&S_{x y}=\sum x_{i} y_{i}-\frac{1}{n}\left(\sum x_{i}\right)\left(\sum y_{i}\right)
+\end{aligned}
+$$
+\item Obtain $b_{1}$ and $b_{0}$ by
+$$
+b_{1}=\frac{S_{x y}}{S_{x x}}, \quad b_{0}=\widebar{y}-b_{1} \widebar{x} .
+$$
+\item Calculate other quantities as required, e.g.,
+$$
+\mathrm{SS}_{\mathrm{T}}=S_{y y},\quad \mathrm{SS}_{\mathrm{E}}=S_{y y}-\frac{S^2_{x y}}{S_{x x}}, \quad R^{2}=\frac{S_{x y}^{2}}{S_{x x} S_{y y}} .
+$$
+\end{enumerate}
+\end{frame}
+
+\subsection{Estimations and Predictions}
+\begin{frame}{Distribution of Estimator for Variance}
+An unbiased estimator for variance $\sigma^{2}$ is given by
+$$
+S^{2}=\frac{\mathrm{SS}_{\mathrm{E}}}{n-2}=\frac{1}{n-2} \sum_{i=1}^{n}\left(Y_{i}-\widehat{\mu}_{Y \mid x_{i}}\right)^{2}
+$$
+The statistic
+$$
+\chi_{n-2}^{2}=\frac{(n-2) S^{2}}{\sigma^{2}}=\frac{\mathrm{SS}_{\mathrm{E}}}{\sigma^{2}}
+$$
+follows a \bb{chi-squared distribution} with $n-2$ degrees of freedom.
+
+\end{frame}
+
+\begin{frame}{Distribution of $B_1$ with Estimated Variance}
+The least squares estimator $B_{1}$ for $\beta_{1}$ follows a normal distribution with
+$$
+\mathrm{E}\left[B_{1}\right]=\beta_{1}, \quad \operatorname{Var}\left[B_{1}\right]=\frac{\sigma^{2}}{\sum\left(x_{i}-\widebar{x}\right)^{2}}=\frac{\sigma^{2}}{S_{x x}} .
+$$
+The statistics
+$$
+T_{n-2}=\frac{B_{1}-\beta_{1}}{S / \sqrt{S_{x x}}}
+$$
+follows \bb{$T$-distributions} with $n-2$ degrees of freedom.
+
+The $100(1-\alpha) \%$ \bb{confidence interval} of $\beta_{1}$ is given by
+$$
+B_{1} \pm t_{\alpha / 2, n-2} \frac{S}{\sqrt{S_{x x}}} .
+$$
+\end{frame}
+
+\begin{frame}{Distribution of $B_0$ with Estimated Variance}
+The least squares estimator $B_{0}$ for $\beta_{0}$ follows a normal distribution with
+$$
+\mathrm{E}\left[B_{0}\right]=\beta_{0}, \quad \operatorname{Var}\left[B_{0}\right]=\frac{\sigma^{2} \sum x_{i}^{2}}{n \sum\left(x_{i}-\widebar{x}\right)^{2}}
+$$
+The statistics
+$$
+T_{n-2}=\frac{B_{0}-\beta_{0}}{S \sqrt{\sum x_{i}^{2}} / \sqrt{n S_{x x}}}
+$$
+follows \bb{$T$-distributions} with $n-2$ degrees of freedom.
+
+The $100(1-\alpha) \%$ \bb{confidence interval} of $\beta_{0}$ is given by
+$$
+B_{0} \pm t_{\alpha / 2, n-2} \frac{S \sqrt{\sum x_{i}^{2}}}{\sqrt{n S_{x x}}} .
+$$
+\end{frame}
+
+\begin{frame}{Distribution of Estimated Mean}
+The estimated mean $\widehat{\mu}_{Y \mid x}$ follows a normal distribution with mean and variance
+$$
+\mathrm{E}\left[\widehat{\mu}_{Y \mid x}\right]=\mu_{Y \mid x}, \quad \operatorname{Var}\left[\widehat{\mu}_{Y \mid x}\right]=\left(\frac{1}{n}+\frac{(x-\widebar{x})^{2}}{S_{x x}}\right) \sigma^{2} .
+$$
+Therefore, the statistic
+$$
+T_{n-2}=\frac{\widehat{\mu}_{Y \mid x}-\mu_{Y \mid x}}{S \sqrt{\frac{1}{n}+\frac{(x-\widebar{x})^{2}}{S_{x x}}}}
+$$
+follows a \bb{$T$-distribution} with $n-2$ degrees of freedom. A $100(1-\alpha) \%$ \bb{confidence interval} for $\mu_{Y \mid x}$ is given by
+$$
+\widehat{\mu}_{Y_{x}} \pm t_{\alpha / 2, n-2} S \sqrt{\frac{1}{n}+\frac{(x-\widebar{x})^{2}}{S_{x x}}} .
+$$
+\end{frame}
+
+\begin{frame}{Distribution and CI for Predictor}
+The statistic $Y \mid x-\widehat{Y \mid x}$ follows a normal distribution with mean and variance
+$$
+\mathrm{E}[Y \mid x-\widehat{Y \mid x}]=0, \quad \operatorname{Var}[Y \mid x-\widehat{Y \mid x}]=\left(1+\frac{1}{n}+\frac{(x-\widebar{x})^{2}}{S_{x x}}\right) \sigma^{2} .
+$$
+Therefore, the statistic
+$$
+T_{n-2}=\frac{Y \mid x-\widehat{Y \mid x}}{S \sqrt{1+\frac{1}{n}+\frac{(x-\widebar{x})^{2}}{S_{x x}}}}
+$$
+follows a \bb{$T$-distribution} with $n-2$ degrees of freedom. A $100(1-\alpha) \%$ \bb{**prediction** interval} for $Y \mid x$ is given by
+$$
+\widehat{Y \mid x} \pm t_{\alpha / 2, n-2} S \sqrt{1+\frac{1}{n}+\frac{(x-\widebar{x})^{2}}{S_{x x}}}
+$$
+\end{frame}
+
+\subsection{Model Analysis}
+\begin{frame}{Quantities}
+\begin{enumerate}
+\item \bb{Total sum of squares}:
+$$
+\mathrm{SS}_{\mathrm{T}}=S_{y y}=\sum_{i=1}^{n}\left(Y_{i}-\widebar{Y}\right)^{2} .
+$$
+\item \bb{Error sum of squared}:
+$$
+\mathrm{SS}_{\mathrm{E}}=\sum_{i=1}^{n}\left(Y_{i}-\left(B_{0}+B_{1} x_{i}\right)\right)^{2}=S_{y y}-B_{1} S_{x y}=S_{y y}-\frac{S_{x y}^{2}}{S_{x x}} .
+$$
+\item \bb{Coefficient of determination}: the proportion of the total variation in
+Y that is explained by the linear model.
+$$
+R^{2}=\frac{\mathrm{SS}_{\mathrm{T}}-\mathrm{SS}_{\mathrm{E}}}{\mathrm{SS}_{\mathrm{T}}}=\frac{S_{x y}^{2}}{S_{x x} S_{y y}} .
+$$
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Test for Significance with $B_1$}
+Let $\left(x_{i}, Y \mid x_{i}\right), i=1, \ldots, n$ be a random sample from $Y \mid x$. We reject
+$$
+H_{0}: \beta_{1}=0
+$$
+at significance level $\alpha$ if the test statistic
+$$
+T_{n-2}=\frac{B_{1}}{S / \sqrt{S_{x x}}}
+$$
+satisfies $\left|T_{n-2}\right|>t_{\alpha / 2, n-2}$.
+\end{frame}
+
+\begin{frame}{Test for Significance with $R^2$}
+Let $\left(x_{i}, Y \mid x_{i}\right), i=1, \ldots, n$ be a random sample from $Y \mid x$. We reject
+$$
+H_{0}: \beta_{1}=0
+$$
+at significance level $\alpha$ if the test statistic
+$$
+T_{n-2}=\frac{B_{1}}{S / \sqrt{S_{x x}}}=\frac{R \sqrt{n-2}}{\sqrt{1-R^{2}}}
+$$
+satisfies $\left|T_{n-2}\right|>t_{\alpha / 2, n-2}$.
+\end{frame}
+
+\begin{frame}{Test for Correlation with $R^2$}
+Let $(X, Y)$ follow a \bb{bivariate normal distribution} with correlation coefficient $\rho \in(-1,1)$. Let $R$ be the estimator for $\rho$. Then we reject
+$$
+H_{0}: \rho=0
+$$
+at significance level $\alpha$ if the test statistic
+$$
+T_{n-2}=\frac{R \sqrt{n-2}}{\sqrt{1-R^{2}}}
+$$
+satisfies $\left|T_{n-2}\right|>t_{\alpha / 2, n-2}$.
+\end{frame}
+
+\begin{frame}{Testing for Lack of Fit}
+$\mathrm{SS}_{\mathrm{E}}$ is the variance of $Y$ explained by the model.
+\begin{itemize}
+\item Error sum of squares due to pure error.
+$$
+\mathrm{SS}_{\mathrm{E}, \mathrm{pe}}:=\sum_{i=1}^{k} \sum_{j=1}^{n_{i}}\left(Y_{i j}-\widebar{Y}_{i}\right)^{2}=\sum_{i=1}^{k} \sum_{j=1}^{n_{i}} Y_{i j}^{2}-\sum_{i=1}^{k} \frac{1}{n_{i}}\left(\sum_{j=1}^{n_{i}} Y_{i j}\right)^{2} .
+$$
+The statistic $\mathrm{SS}_{\mathrm{E}, \mathrm{pe}} / \sigma^{2}$ follows a \bb{chi-squared distribution} with $\sum_{i=1}^{k}\left(n_{i}-\right.$ $1)=n-k$ degrees of freedom.
+\item Error sum of squares due to lack of fit:
+$$
+\mathrm{SS}_{\mathrm{E}, \mathrm{ff}}:=\mathrm{SS}_{\mathrm{E}}-\mathrm{SS}_{\mathrm{E}, \mathrm{pe}} .
+$$
+The statistic $\mathrm{SS}_{\mathrm{E}, \mathrm{If}} / \sigma^{2}$ follows a \bb{chi-squared} distribution with $k-2$ degrees of freedom.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Testing for Lack of Fit}
+Test for lack of fit. Let $x_{1}, \ldots, x_{k}$ be regressors and $Y_{i 1}, \ldots, Y_{i n_{i}}, i=$ $1, \ldots, k$ the measured responses at each of the regressors. Let $\mathrm{SS}_{\mathrm{E}, \mathrm{pe}}$ and $\mathrm{SS}_{\mathrm{E}, \text { If }}$ be the \bb{pure error} and \bb{lack-of-fit sums of squares} for a linear regression model. Then we reject at significance level $\alpha$.
+\begin{center}
+$H_{0}$ : the linear regression model is appropriate
+if the test statistic
+\end{center}
+$$
+F_{k-2, n-k}=\frac{\mathrm{SS}_{\mathrm{E}, \mathrm{f}} /(k-2)}{\mathrm{SS}_{\mathrm{E}, \mathrm{pe}} /(n-k)}
+$$
+satisfies $F_{k-2, n-k}>f_{\alpha, k-2, n-k}$.
+
+\end{frame}
+
+
+\section{Supplementary Materials}
+
+
+\subsection{Prepare MMA File}
+\begin{frame}
+It is suggested that you solve problems in assignments using Mathematica. It's the best way to prepare for Final Exam.
+
+This notebook file, for your reference, is credited to previous TA Zhang Xingjian and Joy Dong. 
+
+It would be better to write your own notebook file.
+\end{frame}
+\end{document}

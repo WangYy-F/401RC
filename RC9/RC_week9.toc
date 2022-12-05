@@ -1,0 +1,10 @@
+\beamer@sectionintoc {1}{Categorical Data}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Pearson Statistics and Multinomial Distribution}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Goodness-of-Fit Test}{6}{0}{1}
+\beamer@subsectionintoc {1}{3}{Test for Independence}{12}{0}{1}
+\beamer@sectionintoc {2}{Simple Linear Regression}{19}{0}{2}
+\beamer@subsectionintoc {2}{1}{Basic Calculation}{19}{0}{2}
+\beamer@subsectionintoc {2}{2}{Estimations and Predictions}{24}{0}{2}
+\beamer@subsectionintoc {2}{3}{Model Analysis}{30}{0}{2}
+\beamer@sectionintoc {3}{Supplementary Materials}{37}{0}{3}
+\beamer@subsectionintoc {3}{1}{Prepare MMA File}{37}{0}{3}

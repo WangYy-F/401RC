@@ -1,0 +1,337 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathabx}
+\usepackage{mathpazo}
+\usepackage{eulervm}
+\usepackage{natbib}
+\usepackage{enumerate}
+\usepackage{mathrsfs}
+
+\usetheme{Madrid}
+\usefonttheme{structurebold}
+\usecolortheme{dove}
+\title{VE401 RC Week2}
+\author{Wang Yangyang}
+\date{2022 Spring}
+\institute{UM-SJTU JI}
+\setbeamersize{text margin left = 20pt, text margin right = 20pt}
+
+\AtEndDocument{\begin{frame}{End}
+                  Credit to Zhanpeng Zhou (TA of SP21)
+                  
+                  Credit to Fan Zhang (TA of SU21)
+                  
+                  Credit to Jiawen Fan (TA of SP21)
+                  
+                  Credit to Zhenghao Gu (TA of SP20)
+               \end{frame}
+                }
+                
+\definecolor{antiquefuchsia}{rgb}{0.57, 0.36, 0.51}
+\newcommand{\bb}[1]{\textcolor{antiquefuchsia}{\textbf{\textit{#1}}}}
+
+\begin{document}
+\maketitle
+
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents
+\end{frame}
+
+%\AtBeginSection[ ]
+%{
+%\begin{frame}{Outline for \secname}
+%	\tableofcontents[currentsection, hideothersubsections, %sectionstyle=show/show]
+%\end{frame}
+%}
+
+\AtBeginSubsection[]{
+  \frame<beamer>{ 
+    \frametitle{Outline}   
+    \tableofcontents[currentsection,currentsubsection] 
+  }
+}
+
+\section{Elementary Probability}
+\subsection{Counting Principles}
+\begin{frame}{Cardano’s Principle}
+\begin{block}{Principle}
+Let $A$ be a random outcome of an experiment
+that may proceed in various ways. Assume each of these ways is equally
+likely. Then the probability $P[A]$ of the outcome $A$ is $$P[A]=\frac{\text{number of ways leading to outcome } A}{\text{number of ways the experiment can proceed}.}$$
+\end{block}
+When applying Cardano’s principle, it is crucial that all outcomes are
+equally likely! —— D’Alembert’s Error
+\end{frame}
+
+
+\begin{frame}{Basic Principles of Counting}
+Suppose a set $A$ of $n$ objects is given.
+\begin{itemize}
+\item \bb{Permutation} of $k$ objects: $\frac{n !}{(n-k) !}$ ways of choosing an ordered tuple of $k$ objects from $A$.
+\item \bb{Combination} of $k$ objects: $\frac{n !}{k !(n-k) !}$ ways of choosing an unordered set of $k$ objects from $A$.
+\item \bb{Permutation} of $k$ \bb{indistinguishable} objects: $\frac{n !}{n_{1} ! n_{2} ! \ldots n_{k} !}$ ways of partitioning $A$ into $k$ disjoint subsets $A_{1}, \ldots, A_{k}$ whose union is $A$, where each $A_{i}$ has $n_{i}$ elements.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Basic Principles of Counting}
+\begin{block}{Example}
+If the letters $s, s, s, t, t, t, i, i, a, c$ are arranged in a random
+order, what is the probability that they will spell the word “statistics”?
+\end{block}
+\pause
+\begin{block}{Solution}
+$$p=1 / \frac{10 !}{3 ! \times 3 ! \times 2 ! \times 1 \times 1}=\frac{1}{50400}$$
+\end{block}
+\end{frame}
+
+
+\begin{frame}{Binomial Coefficient}
+We define binomial coefficients by
+for $\alpha \in \mathbb{R}$
+$$
+\left(\begin{array}{l}
+\alpha \\
+0
+\end{array}\right):=1 \text {, }
+$$
+and, for $n \in \mathbb{N} \backslash\{0\}$ and $\alpha \in \mathbb{R}$,
+$$
+\left(\begin{array}{l}
+\alpha \\
+n
+\end{array}\right):=\frac{\alpha \cdot(\alpha-1) \cdot(\alpha-2) \cdots(\alpha-n+1)}{n !} .
+$$
+If $\alpha \in \mathbb{N}$, this may be expressed as the perhaps more familiar
+$$
+\left(\begin{array}{l}
+\alpha \\
+n
+\end{array}\right)=\frac{\alpha !}{(\alpha-n) ! n !} .
+$$
+It also implies that
+$
+\left(\begin{array}{l}
+m \\
+n
+\end{array}\right)=0
+$
+whenever $n>m$ and $m, n \in \mathbb{N}$.
+\end{frame}
+
+\begin{frame}{Sample Space and Events}
+\begin{Definition}
+\bb{Sample Space:} a space containing all possible outcomes of an experiment.
+
+\bb{Event:} a subset of sample space, containing possible outcomes of the experiment.
+
+\bb{$\sigma$-field:} $\mathscr{F}$ on $S$ is a family of subsets of $S$ such that
+\begin{enumerate}
+\item $\emptyset\in\mathscr{F}$;
+\item if $A\in\mathscr{F}$, then $S\setminus A\in\mathscr{F}$;
+\item if $A_1,A_2,...\in\mathscr{F}$ is a finite or countable sequence of subsets, then the union $\bigcup_kA_k\in\mathscr{F}$.
+\end{enumerate}
+\end{Definition}
+In probability, we consider families of events that are $\sigma$-fields.
+
+For any set $S$, the smallest possible $\sigma$-field is $\mathscr{F}=\{\emptyset, S\}$.
+\end{frame}
+
+\subsection{Probability Measurements}
+\begin{frame}{Sample Space and Events}
+\begin{block}{Example}
+Suppose a coin is tossed three times. Then the sample space $S$ contains the following possible outcomes:
+$$s_1=HHH,s_2=THH,s_3=HTH,s_4=HHT,$$
+$$s_5=HTT,s_6=THT,s_7=TTH,s_8=TTT,$$
+where $H$ denotes head and $T$ denotes tail.
+\end{block}
+The event that at most
+two tails are obtained is given by
+$$a=\{s_1,s_2,s_3,s_4,s_5,s_6,s_7\}.$$
+\end{frame}
+
+
+\begin{frame}{Probability Measures and Spaces}
+\begin{block}{Definition}
+Let $S$ be a sample space and $\mathscr{F}$ a $\sigma$-field on $S$. Then a function
+$$
+P: \mathscr{F} \rightarrow[0,1], \quad A \mapsto P[A],
+$$
+is called a \bb{probability measure} (or \bb{probability function} or just \bb{probability}) on $S$ if
+\begin{enumerate}
+\item $P[S]=1$,
+\item For any set of events $\left\{A_{k}\right\} \subset \mathscr{F}$ such that $A_{j} \cap A_{k}=\emptyset$ for $j \neq k$,
+$$
+P\left[\bigcup_{k} A_{k}\right]=\sum_{k} P\left[A_{k}\right]
+$$
+\end{enumerate}
+The triple $(S, \mathscr{F}, P)$ is called a \bb{probability space}.
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}{Probability Measures and Spaces}
+\begin{block}{Properties}
+For a probability sample space $(S,\mathscr{F},P)$:
+$$P[S]=1$$
+$$P[\emptyset]=0$$
+$$P[S \backslash A]=1-P[A]$$
+$$P[A_{1} \cup A_{2}]=P[A_{1}]+P[A_{2}]-P[A_{1} \cap A_{2}]$$
+where $A,A_1,A_2\in S$ are any events.
+\end{block}
+\end{frame}
+
+\section{Conditional Probability}
+\subsection{Condition and Independence}
+\begin{frame}{Condition and Independence}
+\begin{block}{Definition}
+\begin{itemize}
+\item \bb{Conditional probability} of "$B$ occurs given $A$ has occurred":
+$$
+P[B \mid A]=\frac{P[B \cap A]}{P[A]}
+$$
+\item \bb{Total probability} for $P[B]$ on a sample space $S$, given events $A_{1}, \ldots, A_{n} \in S$ are mutually exclusive and $A_{1} \cup \cdots \cup A_{n}=S$ :
+$$
+P[B]=\sum_{k=1}^{n} P\left[B \mid A_{k}\right] \cdot P\left[A_{k}\right]
+$$
+\item \bb{Independence} of events $A$ and $B: P[A \cap B]=P[A] P[B]$, which is equivalent to
+$$
+\begin{array}{ll}
+P[A \mid B]=P[A] & \text { if } P[B] \neq 0 \\
+P[B \mid A]=P[B] & \text { if } P[A] \neq 0
+\end{array}
+$$
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Conditional Probability}
+\begin{block}{Example}
+You meet a mother with two children. What is the probability of the event A that...
+\begin{enumerate}
+\item One of her children is a girl, the other child is a girl?
+\item One of her children is born on Monday, the other child is not born on Monday?
+\item The older child is a girl, the younger child is also a girl?
+\end{enumerate}
+\end{block}
+\pause
+\begin{block}{Solution}
+\begin{enumerate}
+\item $P[A]=\frac{P[GG]}{P[GG]+P[GB]+P[BG]}=\frac{1/4}{3/4}=\frac{1}{3}$
+\item $P[A]=\frac{12/49}{13/49}=\frac{12}{13}$
+\item $P[A]=\frac{P[GG]}{P[GG]+P[GB]}=\frac{1/4}{2/4}=\frac{1}{2}$
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{Total Probability}
+\begin{block}{Example}
+Suppose Keven plays a game where his score must be $1,2, \ldots$, 50 , and each of these 50 scores is equally likely. Suppose he get $X$ for his first try. He then continue to play the game until he obtains another score $Y$ such that $Y \geq X$. What is the probability of the event $A$ that $Y=50$ ?
+\end{block}
+\pause
+\begin{block}{Solution}
+For each $i=1, \ldots, 50$, let $B_{i}$ be the event that $X=i$. Then conditional on $B_{i}$, the value of $Y$ is equally likely to be any one of the numbers $i, i+1, \ldots, 50$. Therefore, the probability is given by
+$$
+P[A]=\sum_{i=1}^{50} P\left[B_{i}\right] \cdot P\left[A \mid B_{i}\right]=\sum_{i=1}^{50} \frac{1}{50} \cdot \frac{1}{51-i} \approx 0.09
+$$
+\end{block}
+\end{frame}
+
+\begin{frame}{Independence}
+\begin{block}{Example} Given events $A$ and $B$, what happens to $P[A \cap B], P[A \cup B]$, $P[A \mid B], P[A\mid \neg B]$, and $P[\neg A \mid B]$ ? You are encouraged to fill out this table by yourself first.
+
+\begin{tabular}{c|c|c}
+$A$ and $B$ are ... & mutually exclusive & independent \\
+$P[A \cap B]$ &  &  \\
+$P[A \cup B]$ &  & \\
+$P[A \mid B]$ &  &  \\
+$P[A \mid \neg B]$ &  & \\
+$P[\neg A \mid B]$ &  & 
+\end{tabular}
+\end{block}
+\end{frame}
+
+\begin{frame}{Independence}
+\begin{block}{Example} Given events $A$ and $B$, what happens to $P[A \cap B], P[A \cup B]$, $P[A \mid B], P[A\mid \neg B]$, and $P[\neg A \mid B]$ ? You are encouraged to fill out this table by yourself first.
+
+\begin{tabular}{c|c|c}
+$A$ and $B$ are ... & mutually exclusive & independent \\
+$P[A \cap B]$ & 0 & $P[A] P[B]$ \\
+$P[A \cup B]$ & $P[A]+P[B]$ & $P[A]+P[B]-P[A] P[B]$ \\
+$P[A \mid B]$ & 0 & $P[A]$ \\
+$P[A \mid \neg B]$ & $\frac{P[A]}{1-P[B]}$ & $P[A]$ \\
+$P[\neg A \mid B]$ & 1 & $1-P[A]$
+\end{tabular}
+\end{block}
+\end{frame}
+\subsection{Bayes's Theorem}
+\begin{frame}{Bayes's Theorem}
+\begin{block}{Theorem}
+Let $A_{1}, \ldots, A_{n} \subset S$ be a set of pairwise mutually exclusive events whose union is $S$ and who each have non-zero probability of occurring. Let $B \subset S$ be any event such that $P[B] \neq 0$. Then for any $A_{k}, k=1, \ldots, n$
+$$
+P\left[A_{k} \mid B\right]=\frac{P\left[B \cap A_{k}\right]}{P[B]}=\frac{P\left[B \mid A_{k}\right] \cdot P\left[A_{k}\right]}{\sum_{j=1}^{n} P\left[B \mid A_{j}\right] \cdot P\left[A_{j}\right]}.
+$$
+\end{block}
+\begin{block}{Intuition}
+Continue to expand Conditional Theorem in order to substitute $P[A\mid B]$ with $P[B\mid A]$. But this is only for calculation. You can learn more in the course VE414.
+\end{block}
+\end{frame}
+
+\begin{frame}{Bayes's Theorem}
+\begin{block}{Example}
+A box contains one fair coin and one coin with heads on both sides. Suppose one coin is selected at random and when it is tossed twice, two heads are obtained. What is the probability that the coin is the fair coin?
+\end{block}
+\pause
+\begin{block}{Solution}
+Let $E_{1}$ be the event that the selected coin is fair, and $E_{2}$ be the event that the selected coin have two heads. Using Bayes's theorem, we have
+$$
+\begin{aligned}
+P\left[E_{1} \mid H H\right] &=\frac{P\left[E_{1}\right] P\left[H H \mid E_{1}\right]}{P\left[H H \mid E_{2}\right] P\left[E_{2}\right]+P\left[H H \mid E_{1}\right] P\left[E_{1}\right]} \\
+&=\frac{\frac{1}{2} \cdot \frac{1}{4}}{1 \cdot \frac{1}{2}+\frac{1}{4} \cdot \frac{1}{2}}=\frac{1}{5}
+\end{aligned}
+$$
+\end{block}
+\end{frame}
+
+\section{Exercise and Discussion}
+\subsection{Banach Matchbox problem}
+\begin{frame}{Banach Matchbox problem}
+\begin{block}{Exercise}
+Suppose a mathematician carries two matchboxes at all times: one in his left pocket and one in his right. Each time he needs a match, he is equally likely to take it from either pocket. Suppose he reaches into his pocket and discovers for the first time that the box picked is empty. If it is assumed that each of the matchboxes originally contained $n$ matches, what is the probability that there are exactly $k$ matches in the other box?
+\end{block}
+\end{frame}
+
+
+\subsection{Two Children Paradox Revisit}
+\begin{frame}{Two Children Paradox Revisit}
+\begin{block}{Exercise}
+Suppose we were told not only that Mr. Smith has two children, and one of them is a boy, but also that the boy was born on a Sunday. What is the probability that the other child is a boy? Is it still $1/3$?
+\end{block}
+\end{frame}
+
+\subsection{Penney's Game}
+\begin{frame}{Penney's Game (Have Fun)}
+\begin{block}{Exercise}
+The game is played by two players, A and B, who each select a sequence of three flips. For example, assume that Player A selected "heads-heads-heads" (HHH) and Player B has selected "tails-heads-heads" (THH). Then the coin is flipped repeatedly, resulting in a sequence like the following:
+$$\text{HTHTHHHHTHHHTTTTHTHH...}$$
+The player whose sequence showed up first (HHH for Player A or THH for Player B) is declared the winner.
+
+Suppose you are player B. Player A has selected a pattern and now it's your turn to select. Can you maximize your winning probability?
+\end{block}
+\end{frame}
+%\section{Discrete Random Variables}
+
+%\section{Binomial and Geometric Distributions}
+
+%\section{Expectation, Variance and Moments}
+
+%\section{The Pascal, Negative Binomial and Poisson Distributions}
+
+%\section{Continuous Random Variables}
+
+%\section{Exponential and Gamma Distributions}
+
+\end{document}
